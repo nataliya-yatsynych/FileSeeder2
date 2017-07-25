@@ -6,3 +6,6 @@ C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNS\eCrtSeederNS\
 C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNS\eCrtSeederNS\obj\Debug\eCrtSeederNS.exe
 C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNS\eCrtSeederNS\obj\Debug\eCrtSeederNS.pdb
 C:\Users\ny7894\documents\visual studio 2015\Projects\eCrtSeederNS\eCrtSeederNS\obj\Debug\eCrtSeederNS.csprojResolveAssemblyReference.cache
+C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNSExt\eCrtSeederNS\bin\Debug\eCrtSeederNS.exe.config
+C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNSExt\eCrtSeederNS\obj\Debug\eCrtSeederNS.exe
+C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNSExt\eCrtSeederNS\obj\Debug\eCrtSeederNS.pdb
