@@ -98,7 +98,7 @@ namespace eCrtSeederNS
             string[] ProgramName = new string[] { "Animal Care", "Art Fundamentals", "Bachelor of Craft and Design", "Bachelor of Design (Honours)", "Bachelor of Early Childhood Leadership", "Bachelor of Film and Television", "Bachelor of Game Design", "Bachelor of Illustration", "Bachelor of Interaction Design", "Bachelor of Interior Design", "Bachelor of Music Theatre Performance", "Bachelor of Photography", "Business Process Management", "Computer Animation", "Computer Programmer", "Design (Bachelor of Design - Honours)", "Early Childhood Education - Intensive", "Educational Support", "Educational Support - Intensive", "Electrical Techniques" };
             string[] EIName = new string[] { "The Audio Recording Academy","Canadian Mothercraft Society","Trillium College-Kingston","Great Lakes Bible College","Heritage Baptist College","Herzing Institutes of Canada","Institute for Christian Studies","Canada's National Ballet School","Trillium College Inc.-St Catharines","Career College Group Medix-Brampton","Willis Business College-Smith Falls","Trillium College Inc-Toronto","Tyndale University College And Seminary","RCC Institute of Technology-Concord","WCI Westervelt College Inc.","Willis Business College Limited","West End Academy","Canadian Memorial Chiropractic College","Masters College And Seminary","Emmanuel Bible College","Royal Conservatory of Music","Trios College -Scarborough","Sunview College - Mississauga"};
             string[] CurrentProgramYear = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-            // test
+            // test NY
 
             RandomValueFromList item = new RandomValueFromList();
             
