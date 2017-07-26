@@ -12,4 +12,3 @@ C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\CsvHelper.dll
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\CsvHelper.xml
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\obj\Debug\eCrtSeederNS.exe
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\obj\Debug\eCrtSeederNS.pdb
-C:\Users\ny7894\Documents\Visual Studio 2015\Projects\eCrtSeederNSExt\eCrtSeederNS\obj\Debug\eCrtSeederNS.csprojResolveAssemblyReference.cache
