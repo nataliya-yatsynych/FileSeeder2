@@ -2,3 +2,8 @@
 obj
 *.suo
 /obj/Debug
+eCrtSeederNS/bin/Debug/eCrtSeederNS.exe
+eCrtSeederNS/bin/Debug/eCrtSeederNS.pdb
+eCrtSeederNS/obj/Debug/eCrtSeederNS.csproj.FileListAbsolute.txt
+eCrtSeederNS/obj/Debug/eCrtSeederNS.exe
+eCrtSeederNS/obj/Debug/eCrtSeederNS.pdb
