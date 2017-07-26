@@ -10,6 +10,5 @@ C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\eCrtSeederNS.exe
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\eCrtSeederNS.pdb
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\CsvHelper.dll
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\bin\Debug\CsvHelper.xml
-C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\obj\Debug\eCrtSeederNS.csprojResolveAssemblyReference.cache
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\obj\Debug\eCrtSeederNS.exe
 C:\Users\kj0459\Documents\FileSeeder2\eCrtSeederNS\obj\Debug\eCrtSeederNS.pdb

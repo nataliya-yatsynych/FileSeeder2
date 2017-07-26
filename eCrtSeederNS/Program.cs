@@ -62,7 +62,10 @@ namespace eCrtSeederNS
             
             Console.WriteLine("app can generate MSFAA and ecert files for NS/NL/AB/YT/PE provinces");
             Console.WriteLine(Environment.NewLine);
-            Console.WriteLine("****Files will be saved to the 'C:\\TestFiles' location. Please create this folder manually****"+ Environment.NewLine);
+            Console.WriteLine("****Files will be saved to the 'C:\\TestFiles' location. Please create this folder manually****");
+            Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
+            Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
+            Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
             Console.WriteLine("****Enter string like: 1 2 3 ON ");
             Console.WriteLine("****arg 1: Number Of Records ");
             Console.WriteLine("****arg 2: Sequence Number in File Name ");
@@ -104,34 +107,40 @@ namespace eCrtSeederNS
             
 
             string pathToFile = "C:/TestFiles/";
-            eCertFileName = "PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + SequenceNumber.ToString().PadLeft(3, '0');
-            MSFAAfileName = "TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + SequenceNumber.ToString().PadLeft(3, '0');
+            eCertFileName = "eCert Files/PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + SequenceNumber.ToString().PadLeft(3, '0');
+            MSFAAfileName = "MSFAA Files/TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + SequenceNumber.ToString().PadLeft(3, '0');
 
             //Write ecert Header part
             switch (Originator)
             {
                 case "NS":
                     //Create eCert File header NS
+                    pathToFile += "eCert - NS/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNS() + Environment.NewLine);
                     break;
                 case "NL":
                     //Create eCert File header NL
+                    pathToFile += "eCert - NL/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
                 case "ON":
                     //Create eCert File header ON to do
+                    pathToFile += "eCert - ON/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
                 case "AB":
                     //Create eCert File header AB 
+                    pathToFile += "eCert - AB/";
                     File.WriteAllText(pathToFile + "CSL.CERT.SENT."+ CurrentDate.GenerateTodayDate(), Header.AddEcertHeaderAB() + Environment.NewLine);
                     break;
                 case "YT":
                     //Create eCert File header YT
+                    pathToFile += "eCert - YT/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderYT() + Environment.NewLine);
                     break;
                 case "PE":
                     //Create eCert File header PE
+                    pathToFile += "eCert - PE/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderYT() + Environment.NewLine);
                     break;
                 default:
