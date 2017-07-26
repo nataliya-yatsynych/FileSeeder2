@@ -1,7 +1,7 @@
 .vs
 obj
-eCrtSeederNS/obj/Debug
-eCrtSeederNS/bin/Debug
+/eCrtSeederNS/obj/Debug
+/eCrtSeederNS/bin/Debug
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
