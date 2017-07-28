@@ -15,7 +15,7 @@ namespace eCrtSeederNS
             string FileCreationDate = CurrentDate.GenerateTodayDate();
 
             //Result String
-            string eCertHeader = "H" + Program.SequenceNumber.ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(825);
+            string eCertHeader = "H" + Program.SequenceNumbereCertInHeader.ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(825);
             return eCertHeader;
         }
         public static string AddEcertHeaderNL()
@@ -25,7 +25,7 @@ namespace eCrtSeederNS
             string FileCreationDate = CurrentDate.GenerateTodayDate();
 
             //Result String
-            string eCertHeader = "H" + Program.SequenceNumber.ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(642);
+            string eCertHeader = "H" + Program.SequenceNumbereCertInHeader.ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(642);
             return eCertHeader;
         }
 
@@ -59,6 +59,15 @@ namespace eCrtSeederNS
             return eCertHeader;
         }
 
+        public static string AddEcertHeaderNB()
+        {
+
+            string FileCreationDate = CurrentDate.GenerateTodayDate();
+
+            //Result String
+            string eCertHeader = "H" + Program.SequenceNumber.ToString().PadLeft(9, '0') + Program.Originator.ToString() + "22" + FileCreationDate + Filler.AddFiller(866);
+            return eCertHeader;
+        }
         public static string AddMSFAAHeader()
         {
             string RecordTypeHeader = "100";

@@ -12,6 +12,9 @@ namespace eCrtSeederNS
         public int cSGP_MI_at_NBD { get; set; }
         public int cSGP_PD_at_NBD { get; set; }
         public int NLAmount { get; set; }  //line 37 in NL eCert
+        public int NBLAmount { get; set; } //line 37 in NB ecert
+        public int NBBursary { get; set; } //line 51 in NB ecert
+        public int NB_Grant { get; set; } //line 52 in NB ecert
         public int cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD { get; set; }
         public int cSGP_PDSE_at_the_NBD { get; set; }
         public int TotalAmount { get; set; } //Total CSL

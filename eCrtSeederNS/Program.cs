@@ -16,6 +16,7 @@ namespace eCrtSeederNS
       
         public static string Originator { get; set; }
         public static int SequenceNumber { get; set; }
+        public static int SequenceNumbereCertInHeader { get; set; }
         public static int MSFAASequenceNumberInHeader { get; set; }
         public static string AgreementNumber { get; set; }
         public static string RecordMSFAA { get; set; }
@@ -29,23 +30,25 @@ namespace eCrtSeederNS
         public static int TotalDisbursementPE { get; set; }
         public static int TotalDisbursementYT { get; set; }
         public static int TotalDisbursementNL { get; set; }
+        public static int TotalDisbursementNB { get; set; }
         public static int TotalOfCanceledDisbursement { get; set; }
         public static int TotalOfCanceledDisbursementNS { get; set; }
         public static int TotalOfCanceledDisbursementNL { get; set; }
         public static int TotalOfCanceledDisbursementYT { get; set; }
         public static int TotalOfCanceledDisbursementPE { get; set; }
+        public static int TotalOfCanceledDisbursementNB { get; set; }
 
         public static int AwardTotal { get; set; }
         public static int AB_ecert_totalCSLamount { get; set; }
+        public static int NB_ecert_totalCSGPgrants { get; set; }
+        public static int NB_ecert_totalCSGPgrants_canceled { get; set; }
         public static int AB_ecert_totalCSGPamount { get; set; }
-        public static int NL_ecert_totaldisbursement { get; set; }
-
         public static string eCertRecordNS { get; set; }
 
         public static string eCertRecordNL { get; set; }
         public static string eCertRecordPE { get; set; }
         public static string eCertRecordYT { get; set; }
-        
+        public static string eCertRecordNB { get; set; }
         public static string eCertRecordAB_section2 { get; set; }
         public static string eCertRecordAB_section3 { get; set; }
         public static string eCertRecordAB_section5 { get; set; }
@@ -66,18 +69,20 @@ namespace eCrtSeederNS
             Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
             Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
             Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
-            Console.WriteLine("****Enter string like: 1 2 3 ON ");
+            Console.WriteLine("****Enter string like: 1 2 3 1 ON ");
             Console.WriteLine("****arg 1: Number Of Records ");
             Console.WriteLine("****arg 2: Sequence Number in File Name ");
             Console.WriteLine("****arg 3: MSFAA Sequence Number In Header (can be any number if msfaa file is not required for your test) ");
-            Console.WriteLine("****arg 4: Province of Originator ");
+            Console.WriteLine("****arg 4: Ecert Sequence Number In Header  ");
+            Console.WriteLine("****arg 5: Province of Originator ");
 
             args = Console.ReadLine().Split(' ');
 
             NumberOfeCertRecords = Convert.ToInt32(args[0]);
             SequenceNumber = Convert.ToInt32(args[1]);
             MSFAASequenceNumberInHeader = Convert.ToInt32(args[2]);
-            Originator = Convert.ToString(args[3]);
+            SequenceNumbereCertInHeader = Convert.ToInt32(args[3]);
+            Originator = Convert.ToString(args[4]);
             
 
             string[] MaritalStatus = new string[] { "M", "S", "O" };
@@ -101,6 +106,8 @@ namespace eCrtSeederNS
             string[] ProgramName = new string[] { "Animal Care", "Art Fundamentals", "Bachelor of Craft and Design", "Bachelor of Design (Honours)", "Bachelor of Early Childhood Leadership", "Bachelor of Film and Television", "Bachelor of Game Design", "Bachelor of Illustration", "Bachelor of Interaction Design", "Bachelor of Interior Design", "Bachelor of Music Theatre Performance", "Bachelor of Photography", "Business Process Management", "Computer Animation", "Computer Programmer", "Design (Bachelor of Design - Honours)", "Early Childhood Education - Intensive", "Educational Support", "Educational Support - Intensive", "Electrical Techniques" };
             string[] EIName = new string[] { "The Audio Recording Academy","Canadian Mothercraft Society","Trillium College-Kingston","Great Lakes Bible College","Heritage Baptist College","Herzing Institutes of Canada","Institute for Christian Studies","Canada's National Ballet School","Trillium College Inc.-St Catharines","Career College Group Medix-Brampton","Willis Business College-Smith Falls","Trillium College Inc-Toronto","Tyndale University College And Seminary","RCC Institute of Technology-Concord","WCI Westervelt College Inc.","Willis Business College Limited","West End Academy","Canadian Memorial Chiropractic College","Masters College And Seminary","Emmanuel Bible College","Royal Conservatory of Music","Trios College -Scarborough","Sunview College - Mississauga"};
             string[] CurrentProgramYear = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+            string[] LevelOfStudy = new string[] { "1", "2", "3", "4", "5" }; // " 1 - Certificate , 2 - Diploma, 3 - Bachelor, 4 - Masters, 5 - Doctorate"
+            string[] InstituteType = new string[] { "1", "2", "3", "4", "5", "6", "7"}; //" 1 = University, 2 = Community College, 3 = Institute of Technology, 4 = CEGEP, 6 = Private, 7 = Diploma Sc of Nursing"
             // test NY 4
 
             RandomValueFromList item = new RandomValueFromList();
@@ -143,6 +150,11 @@ namespace eCrtSeederNS
                     pathToFile += "eCert - PE/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderYT() + Environment.NewLine);
                     break;
+                case "NB":
+                    //Create eCert File header NB
+                    pathToFile += "eCert - NB/";
+                    File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNB() + Environment.NewLine);
+                    break;
                 default:
                     Console.WriteLine("please spesify correct province code");
                     break;
@@ -177,7 +189,10 @@ namespace eCrtSeederNS
                 string programName = item.SelectRandomValueFromList(ProgramName);
                 string eiName = item.SelectRandomValueFromList(EIName);
                 string currentProgramYear = item.SelectRandomValueFromList(CurrentProgramYear);
-                
+                string levelOfStudy = item.SelectRandomValueFromList(LevelOfStudy);
+                string instituteType = item.SelectRandomValueFromList(InstituteType);
+
+
 
                 string Birthdate = RandomDate.GenerateRandomDate(1950, 2000);
                 string Phone = RandomData.RandomDigits(10);
@@ -222,6 +237,12 @@ namespace eCrtSeederNS
                 g1.NL_provintial_grant = g1value.GrantValue();
 
                 g1.TransitionGrantYT = g1value.GrantValue();
+
+                g1.NBLAmount = g1value.GrantValue();
+
+                g1.NBBursary = g1value.GrantValue();
+
+                g1.NB_Grant = g1value.GrantValue();
 
                 //assign value if PT indicator is F
                 if (mSFAaPTIndicator.Truncate(1) == "F")
@@ -283,6 +304,7 @@ namespace eCrtSeederNS
                
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
+                
 
                  eCertRecordNS =
                     "D"   //1 RecordType 
@@ -640,6 +662,78 @@ namespace eCrtSeederNS
                     + Filler.AddFiller(27) //55
                      ;
 
+                eCertRecordNB =
+                    "D" // 1 Record Type
+                    + SINCommonForMSFAAandEcert //2 SIN
+                    + RandomData.RandomDigits(12) //3 StudentID
+                    + maritalStatus //4
+                    + studenttype // 5
+                    + item.SelectRandomValueFromList(GenderLetter)//gender  6
+                    + "1"   // language 7
+                    + disabilityIndicator // 8
+                    + Birthdate //9
+                    + lastName.Truncate(30).PadRight(30)  //10
+                    + firstName.PadRight(30) //11
+                    + address.PadRight(40)  //12
+                    + address.PadRight(40)  //13
+                    + provinceCode //14
+                    + postalcode //15
+                    + city.PadRight(28)   //16
+                    + CountryName.PadRight(20) //17
+                    + address.PadRight(40)  //18
+                    + address.PadRight(40)  //19
+                    + provinceCode //20
+                    + postalcode //21
+                    + city.PadRight(28)   //22
+                    + CountryName.PadRight(20) //23
+                    + eicode // 24
+                    + eiName.Truncate(40).PadRight(40) //25
+                    + address.PadRight(40)  //26
+                    + address.PadRight(40)  //27
+                    + fieldofstudy.PadRight(2)   //28
+                    + programName.PadRight(50) //29
+                    + Filler.AddFiller(8) // EIConfirmDate //30
+                    + currentProgramYear    //31
+                    + currentProgramYear  //32  ProgramYears
+                    + ProgramStartDate  //33
+                    + ProgramEndDate    //34
+                    + semesterIndicator //35
+                    + CSLAmount.PadLeft(6, '0')     //36
+                    + g1.NBLAmount.ToString().PadLeft(6, '0') //37
+                    + (Convert.ToInt32(CSLAmount) + g1.NBLAmount).ToString().PadLeft(6, '0') //38
+                    + CertificateNumber //39
+                    + NotBeforeDate // 40
+                    + DateTime.Now.ToString("yyyyMMdd") //41 Date issued
+                    + enrollmentConfirmation    //42
+                    + status  //43
+                    + WeeksOfStudy  //44
+                    + levelOfStudy //45
+                    + instituteType //46
+                    + "A01   " //47 ProgramOfStudy Code
+                    + "000000" //48  EI Remittance Amount  V0.2 Should be zeros for NB  as they should be unconfirmed records
+                    + mSFAaPTIndicator.Truncate(1) //49 PT Indicator
+                    + CourseLoad.GenerateCourseLoad(10, 99) //50
+                    + g1.NBBursary.ToString().PadLeft(5, '0') //51
+                    + g1.NB_Grant.ToString().PadLeft(5, '0') //52
+                    + AwardTotal.ToString().PadLeft(5, '0') //53
+                    + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //54
+                    + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0')   //55
+                    + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')   //56
+                    + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD.ToString().PadLeft(5, '0')   //57 
+                    + g1.cSGP_PDSE_at_the_NBD.ToString().PadLeft(5, '0') //58
+                    + Filler.AddFiller(20)   //59
+                    + MidPointDate  //60
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD).ToString().PadLeft(5, '0') //61
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD).ToString().PadLeft(5, '0') //62
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //63
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //64
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //65
+                    + Filler.AddFiller(20) //66
+                    + Phone.PadRight(20)    //67
+                    + (firstName + lastName + "@gmail.com").PadRight(75)  //68
+                    + Filler.AddFiller(65) //69
+                     ;
+
                 if (status == "N")
                 {
                     TotalOfCanceledDisbursement = TotalOfCanceledDisbursement + AwardTotal + Convert.ToInt32(CSLAmount);
@@ -648,6 +742,7 @@ namespace eCrtSeederNS
                     // total of all disbursements for ecert NL trailer
                     TotalOfCanceledDisbursementNL = TotalOfCanceledDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalOfCanceledDisbursementPE = TotalOfCanceledDisbursementPE + Convert.ToInt32(CSLAmount);
+                    TotalOfCanceledDisbursementNB = TotalOfCanceledDisbursementNB+ Convert.ToInt32(CSLAmount) + g1.NBLAmount;
 
                 }
                 else
@@ -658,6 +753,7 @@ namespace eCrtSeederNS
                     TotalDisbursementNS = TotalDisbursementNS + Convert.ToInt32(CSLAmount);
                     TotalDisbursementNL= TotalDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalDisbursementPE= TotalDisbursementPE + Convert.ToInt32(CSLAmount);
+                    TotalDisbursementNB = TotalDisbursementNB + Convert.ToInt32(CSLAmount) + g1.NBLAmount;
                 }
 
                 SINHashTotal = SINHashTotal + SINCommonForMSFAAandEcert;
@@ -749,6 +845,7 @@ namespace eCrtSeederNS
                     //add trailer to eCert YT
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementYT.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementYT.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine);
                     break;
+
             }
             //add trailer to MSFAA
             File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
