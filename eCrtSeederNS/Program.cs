@@ -737,7 +737,7 @@ namespace eCrtSeederNS
                 if (status == "N")
                 {
                     TotalOfCanceledDisbursement = TotalOfCanceledDisbursement + AwardTotal + Convert.ToInt32(CSLAmount);
-                    TotalOfCanceledDisbursementYT = TotalOfCanceledDisbursementYT + AwardTotalYT + Convert.ToInt32(CSLAmount);
+                    TotalOfCanceledDisbursementYT = TotalOfCanceledDisbursementYT  + Convert.ToInt32(CSLAmount);
                     TotalOfCanceledDisbursementNS = TotalOfCanceledDisbursementNS + Convert.ToInt32(CSLAmount);
                     // total of all disbursements for ecert NL trailer
                     TotalOfCanceledDisbursementNL = TotalOfCanceledDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
@@ -749,7 +749,7 @@ namespace eCrtSeederNS
                 {
                     //Total of all Non Cancelled disbursements per file
                     TotalDisbursement = TotalDisbursement + AwardTotal + Convert.ToInt32(CSLAmount);
-                    TotalDisbursementYT = TotalDisbursementYT + AwardTotalYT + Convert.ToInt32(CSLAmount);
+                    TotalDisbursementYT = TotalDisbursementYT +  Convert.ToInt32(CSLAmount);
                     TotalDisbursementNS = TotalDisbursementNS + Convert.ToInt32(CSLAmount);
                     TotalDisbursementNL= TotalDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalDisbursementPE= TotalDisbursementPE + Convert.ToInt32(CSLAmount);
