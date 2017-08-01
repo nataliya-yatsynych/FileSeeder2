@@ -228,7 +228,7 @@ namespace eCrtSeederNS
                 Grants g1 = new Grants();
                 GenericRandomGrant g1value = new GenericRandomGrant();
 
-                g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD = g1value.GrantValue();
+                g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD = 100;
 
                 g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD = g1value.GrantValue();
 
@@ -851,7 +851,7 @@ namespace eCrtSeederNS
                     break;
                 case "YT":
                     //add trailer to eCert YT
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementYT.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementYT.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementYT.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementYT.ToString().PadLeft(9, '0') + Filler.AddFiller(587) + Environment.NewLine);
                     break;
                 case "NB":
                     //add trailer to eCert NB
