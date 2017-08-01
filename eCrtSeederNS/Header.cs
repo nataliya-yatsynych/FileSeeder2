@@ -68,6 +68,16 @@ namespace eCrtSeederNS
             string eCertHeader = "H" + Program.SequenceNumber.ToString().PadLeft(9, '0') + Program.Originator.ToString() + "22" + FileCreationDate + Filler.AddFiller(866);
             return eCertHeader;
         }
+
+        public static string AddEcertHeaderMB()
+        {
+
+            string FileCreationDate = CurrentDate.GenerateTodayDate();
+
+            //Result String
+            string eCertHeader = "H" + Program.SequenceNumber.ToString().PadLeft(9, '0') + Program.Originator.ToString() + "222" + FileCreationDate + Filler.AddFiller(580);
+            return eCertHeader;
+        }
         public static string AddMSFAAHeader()
         {
             string RecordTypeHeader = "100";
