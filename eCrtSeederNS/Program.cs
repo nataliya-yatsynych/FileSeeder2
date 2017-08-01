@@ -722,7 +722,7 @@ namespace eCrtSeederNS
                     + levelOfStudy //45
                     + instituteType //46
                     + "A01   " //47 ProgramOfStudy Code
-                    + "000000" //48  EI Remittance Amount  V0.2 Should be zeros for NB  as they should be unconfirmed records
+                    + "00000000" //48  EI Remittance Amount  V0.2 Should be zeros for NB  as they should be unconfirmed records
                     + mSFAaPTIndicator.Truncate(1) //49 PT Indicator
                     + CourseLoad.GenerateCourseLoad(10, 99) //50
                     + g1.NBBursary.ToString().PadLeft(5, '0') //51
@@ -867,6 +867,9 @@ namespace eCrtSeederNS
                     case "AB":
                         //Append eCert section 2 records
                         File.AppendAllText(pathToFile + "CSL.CERT.SENT."+CurrentDate.GenerateTodayDate(), eCertRecordAB_section2+ Environment.NewLine); 
+                        break;
+                    case "NB":
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordNB + Environment.NewLine);
                         break;
                     case "MB":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordMB + Environment.NewLine);
