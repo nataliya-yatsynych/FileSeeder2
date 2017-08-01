@@ -714,7 +714,7 @@ namespace eCrtSeederNS
                     + levelOfStudy //45
                     + instituteType //46
                     + "A01   " //47 ProgramOfStudy Code
-                    + "000000" //48  EI Remittance Amount  V0.2 Should be zeros for NB  as they should be unconfirmed records
+                    + "00000000" //48  EI Remittance Amount  V0.2 Should be zeros for NB  as they should be unconfirmed records
                     + mSFAaPTIndicator.Truncate(1) //49 PT Indicator
                     + CourseLoad.GenerateCourseLoad(10, 99) //50
                     + g1.NBBursary.ToString().PadLeft(5, '0') //51
@@ -790,7 +790,11 @@ namespace eCrtSeederNS
                     case "AB":
                         //Append eCert section 2 records
                         File.AppendAllText(pathToFile + "CSL.CERT.SENT."+CurrentDate.GenerateTodayDate(), eCertRecordAB_section2+ Environment.NewLine); 
-                       
+                        break;
+                    case "NB":
+                        //Append eCert section 2 records
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordNB + Environment.NewLine);
+
                         break;
                 }
                         //Append MSFAA records
@@ -855,7 +859,7 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') +CSGPTotalNB+ Filler.AddFiller(828) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0') + CSGPTotalNBCanceled.ToString().PadLeft(9, '0')+ NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrantCanceled.ToString().PadLeft(9, '0') + Filler.AddFiller(847) + Environment.NewLine);
                     break;
             }
             //add trailer to MSFAA
