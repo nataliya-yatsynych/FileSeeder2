@@ -33,8 +33,8 @@ namespace eCrtSeederNS
 
             List<int> GrantList = new List<int>();
             GrantList.Add(RandomGrant.Next(500, 1500));
-            GrantList.Add(0);
-            GrantList.Add(0);
+            //GrantList.Add(0);
+            //GrantList.Add(0);
 
 
             int RandomOption = RandomGrant.Next(GrantList.Count);

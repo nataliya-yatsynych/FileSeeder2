@@ -39,6 +39,10 @@ namespace eCrtSeederNS
         public static int TotalOfCanceledDisbursementNB { get; set; }
 
         public static int AwardTotal { get; set; }
+        public static int CSGPTotalNBCanceled { get; set; }
+        public static int CSGPTotalNB{ get; set; }
+        public static int NBProvintialGrant { get; set; }
+        public static int NBProvintialGrantCanceled { get; set; }
         public static int AB_ecert_totalCSLamount { get; set; }
         public static int NB_ecert_totalCSGPgrants { get; set; }
         public static int NB_ecert_totalCSGPgrants_canceled { get; set; }
@@ -743,6 +747,8 @@ namespace eCrtSeederNS
                     TotalOfCanceledDisbursementNL = TotalOfCanceledDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalOfCanceledDisbursementPE = TotalOfCanceledDisbursementPE + Convert.ToInt32(CSLAmount);
                     TotalOfCanceledDisbursementNB = TotalOfCanceledDisbursementNB+ Convert.ToInt32(CSLAmount) + g1.NBLAmount;
+                    CSGPTotalNBCanceled = CSGPTotalNBCanceled + AwardTotal;
+                    NBProvintialGrantCanceled += g1.NBBursary + g1.NB_Grant;
 
                 }
                 else
@@ -754,6 +760,8 @@ namespace eCrtSeederNS
                     TotalDisbursementNL= TotalDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalDisbursementPE= TotalDisbursementPE + Convert.ToInt32(CSLAmount);
                     TotalDisbursementNB = TotalDisbursementNB + Convert.ToInt32(CSLAmount) + g1.NBLAmount;
+                    CSGPTotalNB = CSGPTotalNB + AwardTotal;
+                    NBProvintialGrant += g1.NBBursary + g1.NB_Grant;
                 }
 
                 SINHashTotal = SINHashTotal + SINCommonForMSFAAandEcert;
@@ -845,7 +853,10 @@ namespace eCrtSeederNS
                     //add trailer to eCert YT
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementYT.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementYT.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine);
                     break;
-
+                case "NB":
+                    //add trailer to eCert NB
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') +CSGPTotalNB+ Filler.AddFiller(828) + Environment.NewLine);
+                    break;
             }
             //add trailer to MSFAA
             File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
