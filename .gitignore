@@ -2,6 +2,9 @@
 obj
 eCrtSeederNS/obj/Debug/
 eCrtSeederNS/bin/Debug/
+eCrtSeederNS/bin/Debug/eCrtSeederNS.exe
+eCrtSeederNS/bin/Debug/eCrtSeederNS.pdb
+
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/

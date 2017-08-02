@@ -207,7 +207,7 @@ namespace eCrtSeederNS
 
 
                 string Birthdate = RandomDate.GenerateRandomDate(1950, 2000);
-                string Phone = RandomData.RandomDigits(10);
+                string Phone = "4163125658";
                 string ProgramDate = RandomDate.GenerateRandomDate(2015, 2017);
                 string CSLAmount = RandomData.RandomDigits(4);
                 string CertificateNumber = RandomData.RandomDigits(8);
