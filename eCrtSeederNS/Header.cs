@@ -85,7 +85,7 @@ namespace eCrtSeederNS
             string FileCreationDate = CurrentDate.GenerateTodayDate();
 
             //Result String
-            string eCertHeader = "00SK 15 " + Program.SequenceNumber.ToString().PadLeft(9, '0') + FileCreationDate + Filler.AddFiller(364);
+            string eCertHeader = "00SK 15 " + FileCreationDate + Filler.AddFiller(364);
             return eCertHeader;
         }
         public static string AddMSFAAHeader()
