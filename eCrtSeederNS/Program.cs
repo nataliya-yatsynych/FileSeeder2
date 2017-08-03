@@ -13,7 +13,7 @@ namespace eCrtSeederNS
     class Program
     {
         public static int NumberOfeCertRecords { get; set; }
-      
+
         public static string Originator { get; set; }
         public static int SequenceNumber { get; set; }
         public static int SequenceNumbereCertInHeader { get; set; }
@@ -42,7 +42,7 @@ namespace eCrtSeederNS
 
         public static int AwardTotal { get; set; }
         public static int CSGPTotalNBCanceled { get; set; }
-        public static int CSGPTotalNB{ get; set; }
+        public static int CSGPTotalNB { get; set; }
         public static int NBProvintialGrant { get; set; }
         public static int NBProvintialGrantCanceled { get; set; }
         public static int AB_ecert_totalCSLamount { get; set; }
@@ -64,12 +64,25 @@ namespace eCrtSeederNS
         public static string AB_ecert_Section5_total { get; set; }
         public static string AB_ecert_Section6_total { get; set; }
         public static int AB_ecert_Section6_counter { get; set; }
+        public static string eCertRecordSK_csl_header { get; set; }
+        public static string eCertRecordSK_csl_detail { get; set; }
+        public static string eCertRecordSK_csl_trailer { get; set; }
+        public static string eCertRecordSK_ssl_header { get; set; }
+        public static string eCertRecordSK_ssl_detail { get; set; }
+        public static string eCertRecordSK_ssl_trailer { get; set; }
+        public static string eCertRecordSK_csl_header_cancel { get; set; }
+        public static string eCertRecordSK_csl_detail_cancel { get; set; }
+        public static string eCertRecordSK_csl_trailer_cancel { get; set; }
+        public static string eCertRecordSK_ssl_header_cancel { get; set; }
+        public static string eCertRecordSK_ssl_detail_cancel { get; set; }
+        public static string eCertRecordSK_ssl_trailer_cancel { get; set; }
+        public static string eCertRecordSK_ssl_detail_total { get; set; }
         public static string eCertFileName { get; set; }
 
         public static string ABProgramType { get; set; }
         static public void Main(string[] args)
         {
-            
+
             Console.WriteLine("app can generate MSFAA and ecert files for NS/NL/AB/YT/PE provinces");
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine("****Files will be saved to the 'C:\\TestFiles' location. Please create this folder manually****");
@@ -90,7 +103,7 @@ namespace eCrtSeederNS
             MSFAASequenceNumberInHeader = Convert.ToInt32(args[2]);
             SequenceNumbereCertInHeader = Convert.ToInt32(args[3]);
             Originator = Convert.ToString(args[4]);
-            
+
 
             string[] MaritalStatus = new string[] { "M", "S", "O" };
             string[] Studenttype = new string[] { "1", "2", "3", "4" };
@@ -111,14 +124,14 @@ namespace eCrtSeederNS
             string[] EICode = new string[] { "HVAV", "HCAB", "HVAL" };
             string[] FieldOfStudy = new string[] { "30", "31", "32", "34" };
             string[] ProgramName = new string[] { "Animal Care", "Art Fundamentals", "Bachelor of Craft and Design", "Bachelor of Design (Honours)", "Bachelor of Early Childhood Leadership", "Bachelor of Film and Television", "Bachelor of Game Design", "Bachelor of Illustration", "Bachelor of Interaction Design", "Bachelor of Interior Design", "Bachelor of Music Theatre Performance", "Bachelor of Photography", "Business Process Management", "Computer Animation", "Computer Programmer", "Design (Bachelor of Design - Honours)", "Early Childhood Education - Intensive", "Educational Support", "Educational Support - Intensive", "Electrical Techniques" };
-            string[] EIName = new string[] { "The Audio Recording Academy","Canadian Mothercraft Society","Trillium College-Kingston","Great Lakes Bible College","Heritage Baptist College","Herzing Institutes of Canada","Institute for Christian Studies","Canada's National Ballet School","Trillium College Inc.-St Catharines","Career College Group Medix-Brampton","Willis Business College-Smith Falls","Trillium College Inc-Toronto","Tyndale University College And Seminary","RCC Institute of Technology-Concord","WCI Westervelt College Inc.","Willis Business College Limited","West End Academy","Canadian Memorial Chiropractic College","Masters College And Seminary","Emmanuel Bible College","Royal Conservatory of Music","Trios College -Scarborough","Sunview College - Mississauga"};
+            string[] EIName = new string[] { "The Audio Recording Academy", "Canadian Mothercraft Society", "Trillium College-Kingston", "Great Lakes Bible College", "Heritage Baptist College", "Herzing Institutes of Canada", "Institute for Christian Studies", "Canada's National Ballet School", "Trillium College Inc.-St Catharines", "Career College Group Medix-Brampton", "Willis Business College-Smith Falls", "Trillium College Inc-Toronto", "Tyndale University College And Seminary", "RCC Institute of Technology-Concord", "WCI Westervelt College Inc.", "Willis Business College Limited", "West End Academy", "Canadian Memorial Chiropractic College", "Masters College And Seminary", "Emmanuel Bible College", "Royal Conservatory of Music", "Trios College -Scarborough", "Sunview College - Mississauga" };
             string[] CurrentProgramYear = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
             string[] LevelOfStudy = new string[] { "1", "2", "3", "4", "5" }; // " 1 - Certificate , 2 - Diploma, 3 - Bachelor, 4 - Masters, 5 - Doctorate"
-            string[] InstituteType = new string[] { "1", "2", "3", "4", "5", "6", "7"}; //" 1 = University, 2 = Community College, 3 = Institute of Technology, 4 = CEGEP, 6 = Private, 7 = Diploma Sc of Nursing"
+            string[] InstituteType = new string[] { "1", "2", "3", "4", "5", "6", "7" }; //" 1 = University, 2 = Community College, 3 = Institute of Technology, 4 = CEGEP, 6 = Private, 7 = Diploma Sc of Nursing"
             // test NY 4
 
             RandomValueFromList item = new RandomValueFromList();
-            
+
 
             string pathToFile = "C:/TestFiles/";
             eCertFileName = "eCert Files/PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + SequenceNumber.ToString().PadLeft(3, '0');
@@ -145,7 +158,7 @@ namespace eCrtSeederNS
                 case "AB":
                     //Create eCert File header AB 
                     pathToFile += "eCert - AB/";
-                    File.WriteAllText(pathToFile + "CSL.CERT.SENT."+ CurrentDate.GenerateTodayDate(), Header.AddEcertHeaderAB() + Environment.NewLine);
+                    File.WriteAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), Header.AddEcertHeaderAB() + Environment.NewLine);
                     break;
                 case "YT":
                     //Create eCert File header YT
@@ -166,6 +179,11 @@ namespace eCrtSeederNS
                     //Create eCert File header MB
                     pathToFile += "eCert - MB/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderMB() + Environment.NewLine);
+                    break;
+                case "SK":
+                    //Create eCert File header SK
+                    pathToFile += "eCert - SK/";
+                    File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderSK() + Environment.NewLine);
                     break;
                 default:
                     Console.WriteLine("please spesify correct province code");
@@ -215,12 +233,15 @@ namespace eCrtSeederNS
                 string WeeksOfStudy = RandomData.RandomDigits(2);
                 string EIConfirmDate = RandomDate.GenerateRandomDate(2016, 2017);
                 string EIAmount = "0";
+                string FirstPaymentAmount = RandomData.RandomDigits(4);
+                string ClientFileNumber = RandomData.RandomDigits(7);
+                string ControlNumber = RandomData.RandomDigits(4);
 
 
                 Random rnd = StaticRandom.Instance;
 
-                               
-                
+
+
                 //Define ProgramStart and End date
                 string ProgramStartDate = ProgramDate;
                 DateTime ProgramStartDateHolderDateFormat = DateTime.ParseExact(ProgramStartDate, "yyyyMMdd", null);
@@ -228,10 +249,11 @@ namespace eCrtSeederNS
                 Random RandomDays = StaticRandom.Instance;
                 int rDays = RandomDays.Next(90, 1000);
                 string ProgramEndDate = ProgramStartDateHolderDateFormat.AddDays(rDays).ToString("yyyyMMdd");
+                string ProgramEndDateShort = ProgramStartDateHolderDateFormat.AddDays(rDays).ToString("yyyyMM");
                 string MidPointDate = ProgramStartDateHolderDateFormat.AddDays(rDays / 2).ToString("yyyyMMdd");
 
 
-               
+
                 //Assign random value to grant
                 Grants g1 = new Grants();
                 GenericRandomGrant g1value = new GenericRandomGrant();
@@ -269,7 +291,7 @@ namespace eCrtSeederNS
                     ABProgramType = "P";
                 }
 
-                
+
 
                 //to be refactored, should go to  Create MSFAA
                 AgreementNumber = RandomData.RandomDigits(10);
@@ -300,7 +322,7 @@ namespace eCrtSeederNS
                       + provinceCode.PadRight(4)//ProvinceCode[RandomProvinceCode].PadRight(4)
                       + postalcode.PadRight(16) //PostalCode[RandomPostalCode].PadRight(16)
                       + CountryName.PadRight(20) + Phone.PadLeft(20, '0')
-                      + (firstName+lastName+"@gmail.com").PadRight(70)
+                      + (firstName + lastName + "@gmail.com").PadRight(70)
                       + address.Truncate(40).PadRight(40)
                       + address.Truncate(40).PadRight(40)
                       + city.Truncate(25).PadRight(25)
@@ -313,75 +335,75 @@ namespace eCrtSeederNS
 
 
                 //Total all grants
-               
+
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
-                
 
-                 eCertRecordNS =
-                    "D"   //1 RecordType 
-                    + SINCommonForMSFAAandEcert //2
-                    + RandomData.RandomDigits(12) //3 StudentID
-                    + maritalStatus //4
-                    + studenttype  //5
-                    + gender   //6
-                    + "1"   // language 7
-                    + disabilityIndicator  //8
-                    + Birthdate //9
-                    + lastName.PadRight(50)  //10
-                    + firstName.PadRight(25) //11
-                    + address.PadRight(50)  //12
-                    + address.PadRight(50)  //13
-                    + city.PadRight(28)   //14
-                    + provinceCode //15
-                    + postalcode    //16
-                    + Phone.PadRight(20)    //17
-                    + Filler.AddFiller(55)  //18
-                    + address.Truncate(50).PadRight(50)  //19
-                    + address.Truncate(50).PadRight(50)  //20
-                    + city.Truncate(28).PadRight(28)   //21
-                    + provinceCode    //22 
-                    + postalcode    //23
-                    + eicode //24
-                    + eiName.PadRight(40)   //25
-                    + address.Truncate(20).PadRight(20)   //26
-                    + address.Truncate(20).PadRight(20)   //27
-                    + fieldofstudy.PadRight(2)   //28
-                    + programName.Truncate(30).PadRight(30)  //29
-                    + currentProgramYear    //30
-                    + currentProgramYear  //31  ProgramYears
-                    + ProgramStartDate  //32
-                    + ProgramEndDate    //33
-                    + semesterIndicator //34
-                    + CSLAmount.PadLeft(6, '0')     //35
-                    + Filler.AddFiller(6)   //36
-                    + CSLAmount.PadLeft(6, '0') //(Convert.ToInt32(CSLAmount) + AwardTotal).ToString().PadLeft(6, '0') //37
-                    + mSFAaPTIndicator.Truncate(1) //38 PT Indicator
-                    + Filler.AddFiller(4)   //39
-                    + CertificateNumber //40
-                    + NotBeforeDate //41
-                    + DateTime.Now.ToString("yyyyMMdd") //42
-                    + enrollmentConfirmation    //43
-                    + status  //44
-                    + WeeksOfStudy  //45
-                    + Filler.AddFiller(8) //46 EIConfirmDate
-                    + EIAmount.PadRight(8, '0')  //47
-                    + (firstName + lastName + "@gmail.com").PadRight(50)  //48
-                    + Filler.AddFiller(41)  //49
-                    + AwardTotal.ToString().PadLeft(5, '0')  //50
-                    + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //51
-                    + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0')   //52
-                    + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')   //53
-                    + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD.ToString().PadLeft(5, '0')   //54 
-                    + g1.cSGP_PDSE_at_the_NBD.ToString().PadLeft(5, '0') //55
-                    + Filler.AddFiller(20)  //56
-                    + MidPointDate  //57
-                    + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD).ToString().PadLeft(5, '0') //58
-                    + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD).ToString().PadLeft(5, '0') //59
-                    + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //60
-                    + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //61
-                    + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //62
-                    + Filler.AddFiller(20); //63
+
+                eCertRecordNS =
+                   "D"   //1 RecordType 
+                   + SINCommonForMSFAAandEcert //2
+                   + RandomData.RandomDigits(12) //3 StudentID
+                   + maritalStatus //4
+                   + studenttype  //5
+                   + gender   //6
+                   + "1"   // language 7
+                   + disabilityIndicator  //8
+                   + Birthdate //9
+                   + lastName.PadRight(50)  //10
+                   + firstName.PadRight(25) //11
+                   + address.PadRight(50)  //12
+                   + address.PadRight(50)  //13
+                   + city.PadRight(28)   //14
+                   + provinceCode //15
+                   + postalcode    //16
+                   + Phone.PadRight(20)    //17
+                   + Filler.AddFiller(55)  //18
+                   + address.Truncate(50).PadRight(50)  //19
+                   + address.Truncate(50).PadRight(50)  //20
+                   + city.Truncate(28).PadRight(28)   //21
+                   + provinceCode    //22 
+                   + postalcode    //23
+                   + eicode //24
+                   + eiName.PadRight(40)   //25
+                   + address.Truncate(20).PadRight(20)   //26
+                   + address.Truncate(20).PadRight(20)   //27
+                   + fieldofstudy.PadRight(2)   //28
+                   + programName.Truncate(30).PadRight(30)  //29
+                   + currentProgramYear    //30
+                   + currentProgramYear  //31  ProgramYears
+                   + ProgramStartDate  //32
+                   + ProgramEndDate    //33
+                   + semesterIndicator //34
+                   + CSLAmount.PadLeft(6, '0')     //35
+                   + Filler.AddFiller(6)   //36
+                   + CSLAmount.PadLeft(6, '0') //(Convert.ToInt32(CSLAmount) + AwardTotal).ToString().PadLeft(6, '0') //37
+                   + mSFAaPTIndicator.Truncate(1) //38 PT Indicator
+                   + Filler.AddFiller(4)   //39
+                   + CertificateNumber //40
+                   + NotBeforeDate //41
+                   + DateTime.Now.ToString("yyyyMMdd") //42
+                   + enrollmentConfirmation    //43
+                   + status  //44
+                   + WeeksOfStudy  //45
+                   + Filler.AddFiller(8) //46 EIConfirmDate
+                   + EIAmount.PadRight(8, '0')  //47
+                   + (firstName + lastName + "@gmail.com").PadRight(50)  //48
+                   + Filler.AddFiller(41)  //49
+                   + AwardTotal.ToString().PadLeft(5, '0')  //50
+                   + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //51
+                   + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0')   //52
+                   + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')   //53
+                   + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD.ToString().PadLeft(5, '0')   //54 
+                   + g1.cSGP_PDSE_at_the_NBD.ToString().PadLeft(5, '0') //55
+                   + Filler.AddFiller(20)  //56
+                   + MidPointDate  //57
+                   + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD).ToString().PadLeft(5, '0') //58
+                   + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD).ToString().PadLeft(5, '0') //59
+                   + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //60
+                   + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //61
+                   + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //62
+                   + Filler.AddFiller(20); //63
 
                 eCertRecordPE =
                     "D"   //1 RecordType 
@@ -479,7 +501,7 @@ namespace eCrtSeederNS
                     + address.Truncate(20).PadRight(20)   //25
                     + fieldofstudy.PadRight(2)   //26
                     + Filler.AddFiller(8)       //EIConfirmDate //27
-                    + EIAmount.PadLeft(8,'0')  //28
+                    + EIAmount.PadLeft(8, '0')  //28
                     + Filler.AddFiller(6)   //29
                     + ProgramStartDate  //30
                     + currentProgramYear    //31
@@ -521,7 +543,7 @@ namespace eCrtSeederNS
                     + Filler.AddFiller(70)  //67
                     ;
 
-                
+
                 //eCert record section 2 for AB
                 eCertRecordAB_section2 =
                       "02" //2.1 Record Type
@@ -562,53 +584,53 @@ namespace eCrtSeederNS
                     + RandomData.RandomDigits(12) //2.36 Confirmation authorization id
                     + Filler.AddFiller(22)
                     ;
-            
-               
-            //eCert record section 3 for AB
-                 eCertRecordAB_section3 =
-                  "03" //3.1  Record Type
-                + SINCommonForMSFAAandEcert //3.2 SIN
-                + address.Truncate(40).PadRight(40) //3.3    
-                + address.Truncate(40).PadRight(40) //3.4
-                + city.PadRight(28)   //3.5
-                + provinceCode    //3.6
-                + CountryName.PadRight(20)  //3.7
-                + postalcode.PadLeft(16)    //3.8
-                + Phone // 3.9
-                + Filler.AddFiller(103) //3.10
+
+
+                //eCert record section 3 for AB
+                eCertRecordAB_section3 =
+                 "03" //3.1  Record Type
+               + SINCommonForMSFAAandEcert //3.2 SIN
+               + address.Truncate(40).PadRight(40) //3.3    
+               + address.Truncate(40).PadRight(40) //3.4
+               + city.PadRight(28)   //3.5
+               + provinceCode    //3.6
+               + CountryName.PadRight(20)  //3.7
+               + postalcode.PadLeft(16)    //3.8
+               + Phone // 3.9
+               + Filler.AddFiller(103) //3.10
+               + System.Environment.NewLine
+               ;
+
+                //eCert record section 5 for AB
+                eCertRecordAB_section5 =
+                 "05" //5.1  Record Type
+              + SINCommonForMSFAAandEcert //5.2 SIN
+              + address.Truncate(40).PadRight(40) //5.3    
+              + address.Truncate(40).PadRight(40) //5.4
+              + city.PadRight(28)   //5.5
+              + provinceCode    //5.6
+              + CountryName.PadRight(20)  //5.7
+              + postalcode.PadLeft(16)    //5.8
+              + Phone // 3.9
+              + Filler.AddFiller(103) //5.10
+              + System.Environment.NewLine
+              ;
+
+                //eCert record section 6 for AB
+                eCertRecordAB_section6 =
+                 "06" //6.1  Record Type
+                + SINCommonForMSFAAandEcert //6.2 SIN
+                + CertificateNumber.ToString().PadRight(9, '0') //6.3 Certificate number
+                + CurrentDate.GenerateTodayDate() //6.4 Date issued YYYYMMDD
+                + ProgramEndDate //6.5 Program end date YYYYMMDD
+                + ProgramStartDate //6.6 Program start date YYYYMMDD
+                + DateTime.Now.ToString("yyyyMMdd") //6.7 Disburse date YYYYMMDD
+                + CSLAmount.PadLeft(9, '0') //6.8 CSL amount
+                + eicode //6.9 EI Code
+                + EIConfirmDate //6.10
+                + Filler.AddFiller(197) //6.11
                 + System.Environment.NewLine
                 ;
-
-             //eCert record section 5 for AB
-                  eCertRecordAB_section5 =
-                   "05" //5.1  Record Type
-                + SINCommonForMSFAAandEcert //5.2 SIN
-                + address.Truncate(40).PadRight(40) //5.3    
-                + address.Truncate(40).PadRight(40) //5.4
-                + city.PadRight(28)   //5.5
-                + provinceCode    //5.6
-                + CountryName.PadRight(20)  //5.7
-                + postalcode.PadLeft(16)    //5.8
-                + Phone // 3.9
-                + Filler.AddFiller(103) //5.10
-                + System.Environment.NewLine
-                ;
-
-                    //eCert record section 6 for AB
-                    eCertRecordAB_section6 =
-                     "06" //6.1  Record Type
-                    + SINCommonForMSFAAandEcert //6.2 SIN
-                    + CertificateNumber.ToString().PadRight(9, '0') //6.3 Certificate number
-                    + CurrentDate.GenerateTodayDate() //6.4 Date issued YYYYMMDD
-                    + ProgramEndDate //6.5 Program end date YYYYMMDD
-                    + ProgramStartDate //6.6 Program start date YYYYMMDD
-                    + DateTime.Now.ToString("yyyyMMdd") //6.7 Disburse date YYYYMMDD
-                    + CSLAmount.PadLeft(9, '0') //6.8 CSL amount
-                    + eicode //6.9 EI Code
-                    + EIConfirmDate //6.10
-                    + Filler.AddFiller(197) //6.11
-                    + System.Environment.NewLine
-                    ;
 
                 //Total CSL amount for AB ecert trailer
                 AB_ecert_totalCSLamount = AB_ecert_totalCSLamount + Convert.ToInt32(CSLAmount);
@@ -810,18 +832,110 @@ namespace eCrtSeederNS
                     + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //61
                     + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //62
                     + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //63
-                    + Filler.AddFiller(20); //64
+                    + Filler.AddFiller(20);  //64
+
+
+                //eCert csl detail record for SK
+                eCertRecordSK_csl_detail =
+                    "15"   //1
+                    + "SK"   //2
+                    + SINCommonForMSFAAandEcert //3 SIN
+                    + lastName.Truncate(30).PadRight(30)  //4
+                    + firstName.Truncate(30).PadRight(30) //5
+                    + Birthdate   //6
+                    + gender   //7
+                    + maritalStatus   //8
+                    + eicode   //9
+                    + fieldofstudy  //10
+                    + currentProgramYear    //11
+                    + currentProgramYear  //12 ProgramYears
+                    + WeeksOfStudy  //13
+                    + semesterIndicator  //14
+                    + ProgramEndDateShort   //15
+                    + ProgramDate   //16
+                    + FirstPaymentAmount.PadLeft(5, '0')   //17
+                    + RandomData.RandomDigits(12) //18
+                    + Filler.AddFiller(1)  //19
+                    + FirstPaymentAmount.PadLeft(5, '0')   //20 
+                    + CurrentDate.GenerateTodayDate()    //21
+                    + "U"  //22
+                    + ClientFileNumber   //23
+                    + ControlNumber   //24
+                    + Filler.AddFiller(8)  //25
+                    + "0000000"    //26
+                    + Filler.AddFiller(1)  //27
+                    + Filler.AddFiller(3)  //28
+                    + AwardTotal.ToString().PadLeft(5, '0')  //29
+                    + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //30
+                    + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0')   //31
+                    + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')   //32
+                    + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD.ToString().PadLeft(5, '0')   //33
+                    + g1.cSGP_PDSE_at_the_NBD.ToString().PadLeft(5, '0') //34
+                    + Filler.AddFiller(20)  //35
+                    + MidPointDate  //36
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD).ToString().PadLeft(5, '0') //37
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD).ToString().PadLeft(5, '0') //38
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //39
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //40
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //41
+                    + Filler.AddFiller(20)   //42
+                    + mSFAaPTIndicator.Truncate(1)   //43
+                    + RandomData.RandomDigits(2).PadLeft(2, '0')   //44
+                    + programName.Truncate(50).PadRight(50)   //45
+                    + ProgramEndDate   //46
+                    + Filler.AddFiller(46);  //47
+
+                eCertRecordSK_csl_trailer =
+                    "99"  //1
+                    + NumberOfeCertRecords.ToString().PadLeft(6, '0')  //2
+                    + Filler.AddFiller(372)  //3
+                    + System.Environment.NewLine;
+
+                eCertRecordSK_ssl_header =
+                    "00"   //1
+                    + "SK"   //2
+                    + Filler.AddFiller(1)   //3
+                    + "15 "   //4
+                    + CurrentDate.GenerateTodayDate()   //5
+                    + "P"   //6
+                    + Filler.AddFiller(363)
+                    + System.Environment.NewLine;
+
+                eCertRecordSK_ssl_detail =
+                    eCertRecordSK_csl_detail.Truncate(108)   // Fields 1 to 16
+                    + FirstPaymentAmount.PadLeft(5, '0')   //17
+                    + "0000000000000" //18
+                    + FirstPaymentAmount.PadLeft(5, '0')   //19
+                    + CurrentDate.GenerateTodayDate()    //20
+                    + "U"  //21
+                    + ClientFileNumber   //22
+                    + ControlNumber   //23
+                    + Filler.AddFiller(229)
+                    + System.Environment.NewLine;
+
+                eCertRecordSK_ssl_trailer =
+                    "99"  //1
+                    + NumberOfeCertRecords.ToString().PadLeft(6, '0')  //2
+                    + Filler.AddFiller(372)  //3
+                    + System.Environment.NewLine;
+
+                // Temporary as Cancelled Records not in scope
+                eCertRecordSK_csl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() + Filler.AddFiller(364) + System.Environment.NewLine;
+                eCertRecordSK_csl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
+                eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() +"P" + Filler.AddFiller(363) + System.Environment.NewLine;
+                eCertRecordSK_ssl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
+
 
 
                 if (status == "N")
                 {
                     TotalOfCanceledDisbursement = TotalOfCanceledDisbursement + AwardTotal + Convert.ToInt32(CSLAmount);
-                    TotalOfCanceledDisbursementYT = TotalOfCanceledDisbursementYT  + Convert.ToInt32(CSLAmount);
+                    TotalOfCanceledDisbursementYT = TotalOfCanceledDisbursementYT + Convert.ToInt32(CSLAmount);
                     TotalOfCanceledDisbursementNS = TotalOfCanceledDisbursementNS + Convert.ToInt32(CSLAmount);
                     // total of all disbursements for ecert NL trailer
                     TotalOfCanceledDisbursementNL = TotalOfCanceledDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
                     TotalOfCanceledDisbursementPE = TotalOfCanceledDisbursementPE + Convert.ToInt32(CSLAmount);
-                    TotalOfCanceledDisbursementNB = TotalOfCanceledDisbursementNB+ Convert.ToInt32(CSLAmount) + g1.NBLAmount;  
+                    TotalOfCanceledDisbursementNB = TotalOfCanceledDisbursementNB + Convert.ToInt32(CSLAmount) + g1.NBLAmount;
                     CSGPTotalNBCanceled = CSGPTotalNBCanceled + AwardTotal;
                     NBProvintialGrantCanceled += g1.NBBursary + g1.NB_Grant;
                     TotalOfCanceledDisbursementMB += Convert.ToInt32(CSLAmount);
@@ -831,10 +945,10 @@ namespace eCrtSeederNS
                 {
                     //Total of all Non Cancelled disbursements per file
                     TotalDisbursement = TotalDisbursement + AwardTotal + Convert.ToInt32(CSLAmount);
-                    TotalDisbursementYT = TotalDisbursementYT +  Convert.ToInt32(CSLAmount);
+                    TotalDisbursementYT = TotalDisbursementYT + Convert.ToInt32(CSLAmount);
                     TotalDisbursementNS = TotalDisbursementNS + Convert.ToInt32(CSLAmount);
-                    TotalDisbursementNL= TotalDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
-                    TotalDisbursementPE= TotalDisbursementPE + Convert.ToInt32(CSLAmount);
+                    TotalDisbursementNL = TotalDisbursementNL + Convert.ToInt32(CSLAmount) + Convert.ToInt32(g1.NLAmount);
+                    TotalDisbursementPE = TotalDisbursementPE + Convert.ToInt32(CSLAmount);
                     TotalDisbursementNB = TotalDisbursementNB + Convert.ToInt32(CSLAmount) + g1.NBLAmount;
                     CSGPTotalNB = CSGPTotalNB + AwardTotal;
                     NBProvintialGrant += g1.NBBursary + g1.NB_Grant;
@@ -866,7 +980,7 @@ namespace eCrtSeederNS
                         break;
                     case "AB":
                         //Append eCert section 2 records
-                        File.AppendAllText(pathToFile + "CSL.CERT.SENT."+CurrentDate.GenerateTodayDate(), eCertRecordAB_section2+ Environment.NewLine); 
+                        File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), eCertRecordAB_section2 + Environment.NewLine);
                         break;
                     case "NB":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordNB + Environment.NewLine);
@@ -874,12 +988,17 @@ namespace eCrtSeederNS
                     case "MB":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordMB + Environment.NewLine);
                         break;
+                    case "SK":
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_detail + Environment.NewLine);
+                        break;
                 }
-                        //Append MSFAA records
-                        File.AppendAllText(pathToFile + MSFAAfileName, RecordMSFAA + Environment.NewLine);
+                //Append MSFAA records
+                File.AppendAllText(pathToFile + MSFAAfileName, RecordMSFAA + Environment.NewLine);
 
                 AB_ecert_Section3_total += eCertRecordAB_section3;
                 AB_ecert_Section5_total += eCertRecordAB_section5;
+
+                eCertRecordSK_ssl_detail_total += eCertRecordSK_ssl_detail;
 
 
                 if (status == "N")
@@ -889,31 +1008,42 @@ namespace eCrtSeederNS
                 }
             }
 
-            
+
             //Write ecert record section 3 to AB
-                switch (Originator)
-                {
-                    case "AB":
-                        File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section3_total);
-                        File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section5_total);
-                        File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section6_total);
+            switch (Originator)
+            {
+                case "AB":
+                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section3_total);
+                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section5_total);
+                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section6_total);
 
                     break;
-                    default:
 
-                        break;
-                }
+                case "SK":
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_trailer);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_ssl_header);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_ssl_detail_total);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_ssl_trailer);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_header_cancel);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_trailer_cancel);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_ssl_header_cancel);
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_ssl_trailer_cancel);
+                    break;
+                default:
+
+                    break;
+            }
 
             string MSFAAFileTitle = "MSFAA SENT";
             //Create trailer for MSFAA file
-            MSFAATrailer = "999" + MSFAAFileTitle.ToString().PadRight(40) +NumberOfeCertRecords.ToString().PadLeft(9,'0')+SINHashTotal.ToString().PadLeft(15,'0')+Filler.AddFiller(533);
+            MSFAATrailer = "999" + MSFAAFileTitle.ToString().PadRight(40) + NumberOfeCertRecords.ToString().PadLeft(9, '0') + SINHashTotal.ToString().PadLeft(15, '0') + Filler.AddFiller(533);
 
             //Add trailer to eCert
             switch (Originator)
             {
                 case "NS":
                     //add trailer to eCert NS
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNS.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNS.ToString().PadLeft(9, '0') + Filler.AddFiller(828)+Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNS.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNS.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine);
                     break;
                 case "PE":
                     //add trailer to eCert PE
@@ -929,7 +1059,7 @@ namespace eCrtSeederNS
                     break;
                 case "AB":
                     //add trailer to eCert AB 
-                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), "99" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + NumberOfeCertRecords.ToString().PadLeft(9, '0')+ "000000000"+ NumberOfeCertRecords.ToString().PadLeft(9, '0')+ AB_ecert_Section6_counter.ToString().PadLeft(9,'0') + AB_ecert_totalCSLamount.ToString().PadLeft(15, '0') + AB_ecert_totalCSGPamount.ToString().PadLeft(15, '0') + Filler.AddFiller(193) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), "99" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + NumberOfeCertRecords.ToString().PadLeft(9, '0') + "000000000" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + AB_ecert_Section6_counter.ToString().PadLeft(9, '0') + AB_ecert_totalCSLamount.ToString().PadLeft(15, '0') + AB_ecert_totalCSGPamount.ToString().PadLeft(15, '0') + Filler.AddFiller(193) + Environment.NewLine);
                     break;
                 case "YT":
                     //add trailer to eCert YT
@@ -937,7 +1067,7 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') +CSGPTotalNB+ Filler.AddFiller(828) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB + Filler.AddFiller(828) + Environment.NewLine);
                     break;
                 case "MB":
                     //add trailer to eCert MB
