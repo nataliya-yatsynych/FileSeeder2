@@ -55,9 +55,9 @@ namespace eCrtSeederNS
 
             string ServiceProvider = RandomData.RandomDigits(8);
             string FileCreationDate = CurrentDate.GenerateTodayDate();
-            DBconnection obj2 = new DBconnection();
+
             //Result String
-            string eCertHeader = "H" + obj2.GetEcertSqnInHeader().ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(825);
+            string eCertHeader = "H" + Program.SequenceNumbereCertInHeader.ToString().PadLeft(9, '0') + Program.Originator.ToString() + ServiceProvider + FileCreationDate + Filler.AddFiller(825);
             return eCertHeader;
         }
 
@@ -65,9 +65,9 @@ namespace eCrtSeederNS
         {
 
             string FileCreationDate = CurrentDate.GenerateTodayDate();
-            DBconnection obj2 = new DBconnection();
+
             //Result String
-            string eCertHeader = "H" + obj2.GetEcertSqnInHeader().ToString().PadLeft(9, '0') + Program.Originator.ToString() + "22" + FileCreationDate + Filler.AddFiller(886);
+            string eCertHeader = "H" + Program.SequenceNumbereCertInHeader.ToString().PadLeft(9, '0') + Program.Originator.ToString() + "22" + FileCreationDate + Filler.AddFiller(886);
             return eCertHeader;
         }
 
@@ -75,7 +75,7 @@ namespace eCrtSeederNS
         {
 
             string FileCreationDate = CurrentDate.GenerateTodayDate();
-            DBconnection obj2 = new DBconnection();
+
             //Result String
             string eCertHeader = "H" + obj2.GetEcertSqnInHeader().ToString().PadLeft(9, '0') + Program.Originator.ToString() + "222" + FileCreationDate + Filler.AddFiller(580);
             return eCertHeader;
@@ -96,11 +96,9 @@ namespace eCrtSeederNS
             string Title = "MSFAA SENT";
             string CreationDate = CurrentDate.GenerateTodayDate();
             string CreationTime = string.Format("{0:HHmm}", DateTime.Now);
-            DBconnection obj2 = new DBconnection();
+           // string Sequence = "000002";
 
-            // string Sequence = "000002";
-
-            string MSFAAHeader = RecordTypeHeader + Program.Originator.ToString().PadRight(4) + Title.PadRight(40) + CreationDate + CreationTime + obj2.GetMCFAASqnInHeader().ToString().PadLeft(6,'0') + Filler.AddFiller(535);
+            string MSFAAHeader = RecordTypeHeader + Program.Originator.ToString().PadRight(4) + Title.PadRight(40) + CreationDate + CreationTime + Program.MSFAASequenceNumberInHeader.ToString().PadLeft(6,'0') + Filler.AddFiller(535);
             return MSFAAHeader;
         }
     }

@@ -12,12 +12,14 @@ namespace eCrtSeederNS
 {
     class Program
     {
+        public static string EnvironmentIndicator { get; set; }
         public static int NumberOfeCertRecords { get; set; }
 
         public static string Originator { get; set; }
-        public static int SequenceNumber { get; set; }
+        public static int SequenceNumbereCertInFileName { get; set; }
         public static int SequenceNumbereCertInHeader { get; set; }
         public static int MSFAASequenceNumberInHeader { get; set; }
+        public static int MSFAASequenceNumberInFileName { get; set; }
         public static string AgreementNumber { get; set; }
         public static string RecordMSFAA { get; set; }
         public static string MSFAATrailer { get; set; }
@@ -89,21 +91,16 @@ namespace eCrtSeederNS
             Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
             Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
             Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
-            Console.WriteLine("****Enter string like: 1 2 3 1 ON ");
+            Console.WriteLine("****Enter string like: 1 ON ");
             Console.WriteLine("****arg 1: Number Of Records ");
-            Console.WriteLine("****arg 2: Sequence Number in File Name ");
-            Console.WriteLine("****arg 3: MSFAA Sequence Number In Header (can be any number if msfaa file is not required for your test) ");
-            Console.WriteLine("****arg 4: Ecert Sequence Number In Header  ");
             Console.WriteLine("****arg 5: Province of Originator ");
 
             args = Console.ReadLine().Split(' ');
 
             NumberOfeCertRecords = Convert.ToInt32(args[0]);
-            SequenceNumber = Convert.ToInt32(args[1]);
-            MSFAASequenceNumberInHeader = Convert.ToInt32(args[2]);
-            SequenceNumbereCertInHeader = Convert.ToInt32(args[3]);
-            Originator = Convert.ToString(args[4]);
-
+            
+            Originator = Convert.ToString(args[1]);
+           // EnvironmentIndicator = Convert.ToString(args[1]);
 
             string[] MaritalStatus = new string[] { "M", "S", "O" };
             string[] Studenttype = new string[] { "1", "2", "3", "4" };
@@ -131,11 +128,12 @@ namespace eCrtSeederNS
             // test NY 4
 
             RandomValueFromList item = new RandomValueFromList();
-
+            DBconnection obj = new DBconnection();
+            
 
             string pathToFile = "C:/TestFiles/";
-            eCertFileName = "eCert Files/PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + SequenceNumber.ToString().PadLeft(3, '0');
-            MSFAAfileName = "MSFAA Files/TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + SequenceNumber.ToString().PadLeft(3, '0');
+            eCertFileName = "eCert Files/PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + obj.GetEcertSqnInFileName().ToString().PadLeft(3, '0');
+            MSFAAfileName = "MSFAA Files/TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
             //Write ecert Header part
             switch (Originator)

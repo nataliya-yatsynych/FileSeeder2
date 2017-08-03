@@ -54,10 +54,12 @@
     <Compile Include="Helpers\RandomValueFromList.cs" />
     <Compile Include="Helpers\RandomDate.cs" />
     <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\SelectSequenceNumber.cs" />
     <Compile Include="SIN.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\StudentID.cs" />
+    <Compile Include="Helpers\SQLConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
