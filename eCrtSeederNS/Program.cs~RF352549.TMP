@@ -91,17 +91,16 @@ namespace eCrtSeederNS
             Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
             Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
             Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
-            Console.WriteLine("****Enter string like: 1 S ON ");
+            Console.WriteLine("****Enter string like: 1 ON ");
             Console.WriteLine("****arg 1: Number Of Records ");
-            Console.WriteLine("****arg 2: Province of Originator ");
-            Console.WriteLine("****arg 3: S for SIT, D for DIT ");
+            Console.WriteLine("****arg 5: Province of Originator ");
 
             args = Console.ReadLine().Split(' ');
 
             NumberOfeCertRecords = Convert.ToInt32(args[0]);
             
-            Originator = Convert.ToString(args[1]).ToUpper();
-            EnvironmentIndicator = Convert.ToString(args[2]).ToUpper();
+            Originator = Convert.ToString(args[1]);
+           // EnvironmentIndicator = Convert.ToString(args[1]);
 
             string[] MaritalStatus = new string[] { "M", "S", "O" };
             string[] Studenttype = new string[] { "1", "2", "3", "4" };

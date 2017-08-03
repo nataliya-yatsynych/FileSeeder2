@@ -11,14 +11,23 @@ namespace eCrtSeederNS
     class DBconnection
     {
 
-
+        public static string server { get; set; }
         SqlConnection connection;
         SqlCommand command;
 
         public DBconnection()
         {
             connection = new SqlConnection();
-            connection.ConnectionString = "Data Source=vc01wsqlQA128.devservices.dh.com,1555;Initial Catalog=STLE_CSL_DES_ST;Integrated Security=True";
+            
+            if (Program.EnvironmentIndicator == "S")
+            {
+                server = "vc01wsqlQA128.devservices.dh.com,1555";
+            }
+            else if (Program.EnvironmentIndicator== "D")
+            {
+                server = "vc01wsqldv128.devservices.dh.com,1555";
+            }
+            connection.ConnectionString = "Data Source="+server+";Initial Catalog=STLE_CSL_DES_ST;Integrated Security=True";
             command = new SqlCommand();
             command.Connection = connection;
             command.CommandType = CommandType.Text;
