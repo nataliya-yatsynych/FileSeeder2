@@ -57,8 +57,14 @@ namespace eCrtSeederNS
 
             while (myReader.Read())
             {
-                Program.MSFAASequenceNumberInFileName = Convert.ToInt32(myReader["SeqInFilename"]);
+                if(myReader["SeqInFilename"] == DBNull.Value)
+                {
+                    Program.MSFAASequenceNumberInFileName = 0;
+                } else
+                {
+                    Program.MSFAASequenceNumberInFileName = Convert.ToInt32(myReader["SeqInFilename"]);
 
+                }
             }
             connection.Close();
             return Program.MSFAASequenceNumberInFileName+1;
@@ -72,8 +78,14 @@ namespace eCrtSeederNS
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
-            {
-                Program.SequenceNumbereCertInHeader = Convert.ToInt32(myReader["SeqInFileheader"]);
+            {     
+                if (myReader["SeqInFileheader"] == DBNull.Value)
+                {
+                    Program.SequenceNumbereCertInHeader = 0;
+                } else
+                {
+                    Program.SequenceNumbereCertInHeader = Convert.ToInt32(myReader["SeqInFileheader"]);
+                }
 
             }
             connection.Close();
