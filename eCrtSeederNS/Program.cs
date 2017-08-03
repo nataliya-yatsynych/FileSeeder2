@@ -922,7 +922,7 @@ namespace eCrtSeederNS
                 // Temporary as Cancelled Records not in scope
                 eCertRecordSK_csl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() + Filler.AddFiller(364) + System.Environment.NewLine;
                 eCertRecordSK_csl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
-                eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() +"P" + Filler.AddFiller(364) + System.Environment.NewLine;
+                eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() +"P" + Filler.AddFiller(363) + System.Environment.NewLine;
                 eCertRecordSK_ssl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
 
 
