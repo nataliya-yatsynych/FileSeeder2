@@ -91,7 +91,7 @@ namespace eCrtSeederNS
             Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
             Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
             Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
-            Console.WriteLine("****Enter string like: 1 S ON ");
+            Console.WriteLine("****Enter string like: 1 ON S ");
             Console.WriteLine("****arg 1: Number Of Records ");
             Console.WriteLine("****arg 2: Province of Originator ");
             Console.WriteLine("****arg 3: S for SIT, D for DIT ");
