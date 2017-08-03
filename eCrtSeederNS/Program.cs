@@ -13,6 +13,7 @@ namespace eCrtSeederNS
     class Program
     {
         public static string EnvironmentIndicator { get; set; }
+        public static string MSFAAFlag { get; set; }
         public static int NumberOfeCertRecords { get; set; }
 
         public static string Originator { get; set; }
@@ -91,7 +92,7 @@ namespace eCrtSeederNS
             Console.WriteLine("****Also, please create folders within the TestFiles folder for each province called: eCert - NS, eCert - NL, etc.");
             Console.WriteLine("****Within each province's folder, create two folders called eCert Files and MSFAA Files");
             Console.WriteLine("****As an example, an eCert File for NL will be in C:\\TestFiles\\eCert - NL\\eCert Files" + Environment.NewLine);
-            Console.WriteLine("****Enter string like: 1 S ON ");
+            Console.WriteLine("****Enter string like: 1 NS S ");
             Console.WriteLine("****arg 1: Number Of Records ");
             Console.WriteLine("****arg 2: Province of Originator ");
             Console.WriteLine("****arg 3: S for SIT, D for DIT ");
@@ -102,6 +103,9 @@ namespace eCrtSeederNS
             
             Originator = Convert.ToString(args[1]).ToUpper();
             EnvironmentIndicator = Convert.ToString(args[2]).ToUpper();
+
+            Console.WriteLine("****Generate MSFAA? (Y/N) ");
+            MSFAAFlag = Console.ReadLine().ToUpper();
 
             string[] MaritalStatus = new string[] { "M", "S", "O" };
             string[] Studenttype = new string[] { "1", "2", "3", "4" };
@@ -130,70 +134,74 @@ namespace eCrtSeederNS
 
             RandomValueFromList item = new RandomValueFromList();
             DBconnection obj = new DBconnection();
-            
 
-            string pathToFile = "C:/TestFiles/";
-            eCertFileName = "eCert Files/PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + obj.GetEcertSqnInFileName().ToString().PadLeft(3, '0');
-            MSFAAfileName = "MSFAA Files/TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
+
+            string pathToFile = "\\\\VC01WFSS";  
+            if (EnvironmentIndicator == "S")
+            {
+                pathToFile += "QA";
+            } else if (EnvironmentIndicator == "D")
+            {
+                pathToFile += "DV";
+            }
+
+            pathToFile += "701.devservices.dh.com\\DES_DATA\\INBOUND\\";
+
+            eCertFileName = "ECERT\\PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + obj.GetEcertSqnInFileName().ToString().PadLeft(3, '0');
+            MSFAAfileName = "MSFAA\\TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
             //Write ecert Header part
             switch (Originator)
             {
                 case "NS":
                     //Create eCert File header NS
-                    pathToFile += "eCert - NS/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNS() + Environment.NewLine);
                     break;
                 case "NL":
                     //Create eCert File header NL
-                    pathToFile += "eCert - NL/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
                 case "ON":
                     //Create eCert File header ON to do
-                    pathToFile += "eCert - ON/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
                 case "AB":
                     //Create eCert File header AB 
-                    pathToFile += "eCert - AB/";
                     File.WriteAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), Header.AddEcertHeaderAB() + Environment.NewLine);
                     break;
                 case "YT":
                     //Create eCert File header YT
-                    pathToFile += "eCert - YT/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderYT() + Environment.NewLine);
                     break;
                 case "PE":
                     //Create eCert File header PE
-                    pathToFile += "eCert - PE/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderPE() + Environment.NewLine);
                     break;
                 case "NB":
                     //Create eCert File header NB
-                    pathToFile += "eCert - NB/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNB() + Environment.NewLine);
                     break;
                 case "MB":
                     //Create eCert File header MB
-                    pathToFile += "eCert - MB/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderMB() + Environment.NewLine);
                     break;
                 case "SK":
                     //Create eCert File header SK
-                    pathToFile += "eCert - SK/";
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderSK() + Environment.NewLine);
                     break;
                 default:
-                    Console.WriteLine("please spesify correct province code");
+                    Console.WriteLine("please specify correct province code");
                     break;
             }
 
 
 
 
-            //Create MSFAA File
-            File.WriteAllText(pathToFile + MSFAAfileName, Header.AddMSFAAHeader() + Environment.NewLine);
+            //Create MSFAA File (Header)
+            if (MSFAAFlag == "Y")
+            {
+                File.WriteAllText(pathToFile + MSFAAfileName, Header.AddMSFAAHeader() + Environment.NewLine);
+            }
 
 
             for (int i = 0; i < NumberOfeCertRecords; i++)
@@ -992,7 +1000,10 @@ namespace eCrtSeederNS
                         break;
                 }
                 //Append MSFAA records
-                File.AppendAllText(pathToFile + MSFAAfileName, RecordMSFAA + Environment.NewLine);
+                if (MSFAAFlag == "Y")
+                {
+                    File.AppendAllText(pathToFile + MSFAAfileName, RecordMSFAA + Environment.NewLine);
+                }
 
                 AB_ecert_Section3_total += eCertRecordAB_section3;
                 AB_ecert_Section5_total += eCertRecordAB_section5;
@@ -1074,9 +1085,10 @@ namespace eCrtSeederNS
                     break;
             }
             //add trailer to MSFAA
-            File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
-
-
+            if (MSFAAFlag == "Y")
+            {
+                File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
+            }
 
         }
     }
