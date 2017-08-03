@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -1077,7 +1077,7 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB + Filler.AddFiller(828) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0')+ NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrant.ToString().PadLeft(9, '0')+ Filler.AddFiller(828) + Environment.NewLine);
                     break;
                 case "MB":
                     //add trailer to eCert MB
