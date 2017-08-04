@@ -18,6 +18,7 @@ namespace eCrtSeederNS
 
         public static string Originator { get; set; }
         public static int SequenceNumbereCertInFileName { get; set; }
+        public static int DateeCertInFileName { get; set; }
         public static int SequenceNumbereCertInHeader { get; set; }
         public static int MSFAASequenceNumberInHeader { get; set; }
         public static int MSFAASequenceNumberInFileName { get; set; }
@@ -148,6 +149,10 @@ namespace eCrtSeederNS
             pathToFile += "701.devservices.dh.com\\DES_DATA\\INBOUND\\";
 
             eCertFileName = "ECERT\\PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + obj.GetEcertSqnInFileName().ToString().PadLeft(3, '0');
+            if (Originator.ToString() == "AB")
+            {
+                eCertFileName = "ECERT\\CSL.CERT.SENT." + obj.GetEcertDateInFileName().ToString();
+            }
             MSFAAfileName = "MSFAA\\TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
             //Write ecert Header part
@@ -167,7 +172,7 @@ namespace eCrtSeederNS
                     break;
                 case "AB":
                     //Create eCert File header AB 
-                    File.WriteAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), Header.AddEcertHeaderAB() + Environment.NewLine);
+                    File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderAB() + Environment.NewLine);
                     break;
                 case "YT":
                     //Create eCert File header YT
