@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -36,7 +36,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 *  from [dbo].[DesFileList] where FileSource = 'MSFAA_SENT' and ProvinceCode = '"+Program.Originator+"' and LastLoadStatus = 'C' order by SysRecordUpdateDt desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 [dbo].[DesFileList].SeqInFilename, [dbo].[DesFileList].SeqInFileheader from [dbo].[DesFileList] inner join[dbo].[ValFileResult] on[dbo].[DesFileList].FileID = [dbo].[ValFileResult].FileID where ProvinceCode = '" + Program.Originator + "' and FileSource = 'MSFAA_SENT' and IsValidFlag = 1 and LastLoadStatus = 'C' order by SeqInHdr desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
@@ -52,7 +52,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename, SeqInFileheader  from [dbo].[DesFileList] where FileSource = 'MSFAA_SENT' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SysRecordUpdateDt desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 [dbo].[DesFileList].SeqInFilename, [dbo].[DesFileList].SeqInFileheader from [dbo].[DesFileList] inner join[dbo].[ValFileResult] on[dbo].[DesFileList].FileID = [dbo].[ValFileResult].FileID where ProvinceCode = '" + Program.Originator + "' and FileSource = 'MSFAA_SENT' and IsValidFlag = 1 and LastLoadStatus = 'C' order by SeqInHdr desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
@@ -78,18 +78,19 @@ namespace eCrtSeederNS
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
-            {     
+            {
                 if (myReader["SeqInFileheader"] == DBNull.Value)
                 {
                     Program.SequenceNumbereCertInHeader = 0;
-                } else
+                }
+                else
                 {
                     Program.SequenceNumbereCertInHeader = Convert.ToInt32(myReader["SeqInFileheader"]);
                 }
 
             }
             connection.Close();
-            return Program.SequenceNumbereCertInHeader+1;
+            return Program.SequenceNumbereCertInHeader + 1;
         }
 
         public int GetEcertSqnInFileName()
@@ -101,11 +102,38 @@ namespace eCrtSeederNS
 
             while (myReader.Read())
             {
-                Program.SequenceNumbereCertInFileName = Convert.ToInt32(myReader["SeqInFilename"]);
-
+                if (myReader["SeqInFilename"] == DBNull.Value)
+                {
+                    Program.SequenceNumbereCertInHeader = 0;
+                } else
+                {
+                    Program.SequenceNumbereCertInFileName = Convert.ToInt32(myReader["SeqInFilename"]);
+                }
+                
             }
             connection.Close();
-            return Program.SequenceNumbereCertInFileName+1;
+            return Program.SequenceNumbereCertInFileName + 1;
+        }
+
+        public int GetEcertDateInFileName()
+        {
+            connection.Open();
+            SqlDataReader myReader = null;
+            SqlCommand myCommand = new SqlCommand("select top 1 FileName from DesFileList where ProvinceCode = 'AB' and FileSource = 'ECERT_AB' and LastLoadStatus = 'C' order by FileName desc", connection);
+            myReader = myCommand.ExecuteReader();
+
+            while (myReader.Read())
+            {
+                if (myReader["FileName"] == DBNull.Value)
+                {
+                    Program.DateeCertInFileName = 0;
+                } else
+                {
+                    Program.DateeCertInFileName = Convert.ToInt32($"{myReader["FileName"]}".Substring(14));
+                }
+            }
+            connection.Close();
+            return Program.DateeCertInFileName + 1;
         }
 
     }
