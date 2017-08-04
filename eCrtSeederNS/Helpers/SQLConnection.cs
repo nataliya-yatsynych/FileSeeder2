@@ -52,7 +52,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 [dbo].[DesFileList].SeqInFilename, [dbo].[DesFileList].SeqInFileheader from [dbo].[DesFileList] inner join[dbo].[ValFileResult] on[dbo].[DesFileList].FileID = [dbo].[ValFileResult].FileID where ProvinceCode = '" + Program.Originator + "' and FileSource = 'MSFAA_SENT' and LastLoadStatus = 'C' order by SeqInHdr desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename from[dbo].[DesFileList] where FileSource = 'MSFAA_SENT' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SeqInFilename desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
