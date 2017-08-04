@@ -148,6 +148,26 @@ namespace eCrtSeederNS
 
             pathToFile += "701.devservices.dh.com\\DES_DATA\\INBOUND\\";
 
+            DirectoryInfo d = new DirectoryInfo(pathToFile + "ECERT");//Assuming Test is your Folder
+            FileInfo[] Files = d.GetFiles(); //Getting Text files
+            string flag;
+            foreach (FileInfo file in Files)
+            {
+                if ((file.Name.Contains("PP" + Program.Originator)) || (Program.Originator == "AB" && file.Name.Contains("CSL.CERT")))
+                {
+                    Console.WriteLine("****Warning, there may be another file already in the folder! ");
+                    Console.WriteLine("****Continue? (Y/N)");
+                    flag = Console.ReadLine();
+                    if (flag.ToUpper() == "Y")
+                    {
+                        break;
+                    } else
+                    {
+                        return;
+                    }
+                }
+            }
+
             eCertFileName = "ECERT\\PP" + Originator.ToString() + ".EDU.CERTS.D" + CurrentDate.GenerateTodayDateJulian() + "." + obj.GetEcertSqnInFileName().ToString().PadLeft(3, '0');
             if (Originator.ToString() == "AB")
             {
