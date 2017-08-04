@@ -1082,8 +1082,7 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB + Filler.AddFiller(828) + Environment.NewLine);
-                    break;
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0')+ CSGPTotalNBCanceled.ToString().PadLeft(9, '0') + NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrantCanceled.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine); break;
                 case "MB":
                     //add trailer to eCert MB
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementMB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementMB.ToString().PadLeft(9, '0') + Filler.AddFiller(578) + Environment.NewLine);
