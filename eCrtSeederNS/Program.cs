@@ -233,7 +233,7 @@ namespace eCrtSeederNS
 
                 string Birthdate = RandomDate.GenerateRandomDate(1950, 2000);
                 string Phone = "4163125658";
-                string ProgramDate = RandomDate.GenerateRandomDate(2015, 2017);
+                string ProgramDate = RandomDate.GenerateRandomDate(2017, 2019);
                 string CSLAmount = RandomData.RandomDigits(4);
                 string CertificateNumber = RandomData.RandomDigits(8);
                 string NotBeforeDate = RandomDate.GenerateRandomDate(2016, 2018);
@@ -1077,7 +1077,9 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0')+ NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrant.ToString().PadLeft(9, '0')+ Filler.AddFiller(828) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0')
+                        + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0')+ CSGPTotalNBCanceled.ToString().PadLeft(9, '0')
+                        + NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrantCanceled.ToString().PadLeft(9, '0')+ Filler.AddFiller(828) + Environment.NewLine);
                     break;
                 case "MB":
                     //add trailer to eCert MB
