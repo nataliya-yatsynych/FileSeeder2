@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -52,7 +52,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 [dbo].[DesFileList].SeqInFilename, [dbo].[DesFileList].SeqInFileheader from [dbo].[DesFileList] inner join[dbo].[ValFileResult] on[dbo].[DesFileList].FileID = [dbo].[ValFileResult].FileID where ProvinceCode = '" + Program.Originator + "' and FileSource = 'MSFAA_SENT' and IsValidFlag = 1 and LastLoadStatus = 'C' order by SeqInHdr desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 [dbo].[DesFileList].SeqInFilename, [dbo].[DesFileList].SeqInFileheader from [dbo].[DesFileList] inner join[dbo].[ValFileResult] on[dbo].[DesFileList].FileID = [dbo].[ValFileResult].FileID where ProvinceCode = '" + Program.Originator + "' and FileSource = 'MSFAA_SENT' and LastLoadStatus = 'C' order by SeqInHdr desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
