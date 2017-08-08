@@ -29,3 +29,5 @@ TestResults
 ClientBin
 [Ss]tyle[Cc]op.*
 ~$*
+!*.exe 
+!*.pdb
