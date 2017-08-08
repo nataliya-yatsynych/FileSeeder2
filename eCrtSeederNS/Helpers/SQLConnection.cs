@@ -74,7 +74,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename, SeqInFileheader  from [dbo].[DesFileList] where FileSource = 'ECERT_" + Program.Originator + "' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SysRecordUpdateDt desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename, SeqInFileheader  from [dbo].[DesFileList] where FileSource = 'ECERT_" + Program.Originator + "' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SysRecordCreateDt desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
@@ -97,7 +97,7 @@ namespace eCrtSeederNS
         {
             connection.Open();
             SqlDataReader myReader = null;
-            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename, SeqInFileheader  from [dbo].[DesFileList] where FileSource = 'ECERT_" + Program.Originator + "' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SysRecordUpdateDt desc", connection);
+            SqlCommand myCommand = new SqlCommand("select TOP 1 SeqInFilename, SeqInFileheader  from [dbo].[DesFileList] where FileSource = 'ECERT_" + Program.Originator + "' and ProvinceCode = '" + Program.Originator + "' and LastLoadStatus = 'C' order by SysRecordCreateDt desc", connection);
             myReader = myCommand.ExecuteReader();
 
             while (myReader.Read())
