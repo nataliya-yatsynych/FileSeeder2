@@ -10,7 +10,7 @@ namespace eCrtSeederNS
 {
     class DBconnection
     {
-
+        //test NY
         public static string server { get; set; }
         SqlConnection connection;
         SqlCommand command;
