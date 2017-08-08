@@ -1015,7 +1015,7 @@ namespace eCrtSeederNS
                         break;
                     case "AB":
                         //Append eCert section 2 records
-                        File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), eCertRecordAB_section2 + Environment.NewLine);
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section2 + Environment.NewLine);
                         break;
                     case "NB":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordNB + Environment.NewLine);
@@ -1051,9 +1051,9 @@ namespace eCrtSeederNS
             switch (Originator)
             {
                 case "AB":
-                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section3_total);
-                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section5_total);
-                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), AB_ecert_Section6_total);
+                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section3_total);
+                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section5_total);
+                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section6_total);
 
                     break;
 
@@ -1097,7 +1097,7 @@ namespace eCrtSeederNS
                     break;
                 case "AB":
                     //add trailer to eCert AB 
-                    File.AppendAllText(pathToFile + "CSL.CERT.SENT." + CurrentDate.GenerateTodayDate(), "99" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + NumberOfeCertRecords.ToString().PadLeft(9, '0') + "000000000" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + AB_ecert_Section6_counter.ToString().PadLeft(9, '0') + AB_ecert_totalCSLamount.ToString().PadLeft(15, '0') + AB_ecert_totalCSGPamount.ToString().PadLeft(15, '0') + Filler.AddFiller(193) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "99" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + NumberOfeCertRecords.ToString().PadLeft(9, '0') + "000000000" + NumberOfeCertRecords.ToString().PadLeft(9, '0') + AB_ecert_Section6_counter.ToString().PadLeft(9, '0') + AB_ecert_totalCSLamount.ToString().PadLeft(15, '0') + AB_ecert_totalCSGPamount.ToString().PadLeft(15, '0') + Filler.AddFiller(193) + Environment.NewLine);
                     break;
                 case "YT":
                     //add trailer to eCert YT
