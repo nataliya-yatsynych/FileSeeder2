@@ -942,7 +942,10 @@ namespace eCrtSeederNS
                     + "U"  //21
                     + ClientFileNumber   //22
                     + ControlNumber   //23
-                    + Filler.AddFiller(229)
+                    + Filler.AddFiller(175)
+                    + ProgramEndDate   //28
+                    + (mSFAaPTIndicator == "FT" ? "005852017121500585" : "000000000000000000")
+                    + Filler.AddFiller(28)
                     + System.Environment.NewLine;
 
                 eCertRecordSK_ssl_trailer =
