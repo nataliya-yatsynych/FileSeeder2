@@ -129,11 +129,15 @@ namespace eCrtSeederNS
                     Program.DateeCertInFileName = 0;
                 } else
                 {
-                    Program.DateeCertInFileName = Convert.ToInt32($"{myReader["FileName"]}".Substring(14));
+                    //int date = Convert.ToInt32($"{myReader["FileName"]}".Substring(14));
+                    DateTime dt = DateTime.ParseExact($"{myReader["FileName"]}".Substring(14), "yyyyMMdd", null);
+                    DateTime next = dt.AddDays(1);
+                    Program.DateeCertInFileName = Convert.ToInt32(next.ToString("yyyyMMdd"));
+
                 }
             }
             connection.Close();
-            return Program.DateeCertInFileName + 1;
+            return Program.DateeCertInFileName;
         }
 
     }

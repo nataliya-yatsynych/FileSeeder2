@@ -1117,7 +1117,6 @@ namespace eCrtSeederNS
                 File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
             }
 
-            //testing
         }
     }
 }
