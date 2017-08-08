@@ -944,7 +944,7 @@ namespace eCrtSeederNS
                     + ControlNumber   //23
                     + Filler.AddFiller(175)
                     + ProgramEndDate   //28
-                    + (mSFAaPTIndicator == "FT" ? "005852017121500585" : "000000000000000000")
+                    + (mSFAaPTIndicator == "FT" ? "005852017121500585" : "000000000000000000") //Hardcoded for now
                     + Filler.AddFiller(28)
                     + System.Environment.NewLine;
 
