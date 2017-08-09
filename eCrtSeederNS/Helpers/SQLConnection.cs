@@ -132,6 +132,10 @@ namespace eCrtSeederNS
                     //int date = Convert.ToInt32($"{myReader["FileName"]}".Substring(14));
                     DateTime dt = DateTime.ParseExact($"{myReader["FileName"]}".Substring(14), "yyyyMMdd", null);
                     DateTime next = dt.AddDays(1);
+                    if (next < DateTime.Now)
+                    {
+                        next = DateTime.Now;
+                    }
                     Program.DateeCertInFileName = Convert.ToInt32(next.ToString("yyyyMMdd"));
 
                 }
