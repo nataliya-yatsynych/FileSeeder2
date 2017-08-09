@@ -175,6 +175,7 @@ namespace eCrtSeederNS
             }
             MSFAAfileName = "MSFAA\\TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
+            #region eCert Header
             //Write ecert Header part
             switch (Originator)
             {
@@ -218,8 +219,7 @@ namespace eCrtSeederNS
                     Console.WriteLine("please specify correct province code");
                     break;
             }
-
-
+            #endregion
 
 
             //Create MSFAA File (Header)
@@ -227,7 +227,6 @@ namespace eCrtSeederNS
             {
                 File.WriteAllText(pathToFile + MSFAAfileName, Header.AddMSFAAHeader() + Environment.NewLine);
             }
-
 
             for (int i = 0; i < NumberOfeCertRecords; i++)
             {
@@ -371,7 +370,7 @@ namespace eCrtSeederNS
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
 
-
+                #region NS - eCert Record
                 eCertRecordNS =
                    "D"   //1 RecordType 
                    + SINCommonForMSFAAandEcert //2
@@ -436,7 +435,8 @@ namespace eCrtSeederNS
                    + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //61
                    + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //62
                    + Filler.AddFiller(20); //63
-
+                #endregion
+                #region PEI - eCert Record
                 eCertRecordPE =
                     "D"   //1 RecordType 
                     + SINCommonForMSFAAandEcert //2
@@ -503,7 +503,8 @@ namespace eCrtSeederNS
                     + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //61
                     + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //62
                     + Filler.AddFiller(20); //63
-
+                #endregion
+                #region NL - eCert Record
                 //eCert record for NL
                 eCertRecordNL =
                     "D"  //1
@@ -574,8 +575,8 @@ namespace eCrtSeederNS
                     + programName.Truncate(30).PadRight(30)  //66
                     + Filler.AddFiller(70)  //67
                     ;
-
-
+                #endregion
+                #region AB - eCert Record
                 //eCert record section 2 for AB
                 eCertRecordAB_section2 =
                       "02" //2.1 Record Type
@@ -667,8 +668,8 @@ namespace eCrtSeederNS
                 //Total CSL amount for AB ecert trailer
                 AB_ecert_totalCSLamount = AB_ecert_totalCSLamount + Convert.ToInt32(CSLAmount);
                 AB_ecert_totalCSGPamount = AB_ecert_totalCSGPamount + AwardTotal;
-
-
+                #endregion
+                #region YT - eCert Record
                 //eCert record for YT
                 eCertRecordYT =
                     "D" // 1 Record Type
@@ -727,7 +728,8 @@ namespace eCrtSeederNS
                     + CourseLoad.GenerateCourseLoad(10, 99) //54
                     + Filler.AddFiller(27) //55
                      ;
-
+                #endregion
+                #region NB - eCert Record
                 eCertRecordNB =
                     "D" // 1 Record Type
                     + SINCommonForMSFAAandEcert //2 SIN
@@ -799,7 +801,8 @@ namespace eCrtSeederNS
                     + (firstName + lastName + "@gmail.com").PadRight(75)  //68
                     + Filler.AddFiller(65) //69
                      ;
-
+                #endregion
+                #region MB - eCert Record
                 //eCert record for MB
                 eCertRecordMB =
                      "D" // 1 Record Type
@@ -865,8 +868,8 @@ namespace eCrtSeederNS
                     + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD).ToString().PadLeft(5, '0') //62
                     + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //63
                     + Filler.AddFiller(20);  //64
-
-
+                #endregion
+                #region SK - eCert Header, Record, Trailer
                 //eCert csl detail record for SK
                 eCertRecordSK_csl_detail =
                     "15"   //1
@@ -959,7 +962,7 @@ namespace eCrtSeederNS
                 eCertRecordSK_csl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
                 eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() +"P" + Filler.AddFiller(363) + System.Environment.NewLine;
                 eCertRecordSK_ssl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
-
+                #endregion
 
 
                 if (status == "N")
@@ -1072,6 +1075,7 @@ namespace eCrtSeederNS
                     break;
             }
 
+            #region MSFAA/eCert Trailer
             string MSFAAFileTitle = "MSFAA SENT";
             //Create trailer for MSFAA file
             MSFAATrailer = "999" + MSFAAFileTitle.ToString().PadRight(40) + NumberOfeCertRecords.ToString().PadLeft(9, '0') + SINHashTotal.ToString().PadLeft(15, '0') + Filler.AddFiller(533);
@@ -1116,7 +1120,7 @@ namespace eCrtSeederNS
             {
                 File.AppendAllText(pathToFile + MSFAAfileName, MSFAATrailer + Environment.NewLine);
             }
-
+            #endregion
         }
     }
 }
