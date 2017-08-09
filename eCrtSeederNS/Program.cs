@@ -369,6 +369,7 @@ namespace eCrtSeederNS
 
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
+                int AwardTotalAB = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD;
 
                 #region NS - eCert Record
                 eCertRecordNS =
@@ -587,7 +588,7 @@ namespace eCrtSeederNS
                     + ProgramStartDate //2.6 Program start date YYYYMMDD
                     + DateTime.Now.ToString("yyyyMMdd") //2.7 Disburse date YYYYMMDD
                     + CSLAmount.PadLeft(9, '0') //2.8 CSL amount
-                    + AwardTotal.ToString().PadLeft(5, '0') //2.9 CSGP amount (Total Award Amount)
+                    + AwardTotalAB.ToString().PadLeft(5, '0') //2.9 CSGP amount (Total Award Amount)
                     + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //2.10
                     + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0') //2.11
                     + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')  //2.12
@@ -667,7 +668,7 @@ namespace eCrtSeederNS
 
                 //Total CSL amount for AB ecert trailer
                 AB_ecert_totalCSLamount = AB_ecert_totalCSLamount + Convert.ToInt32(CSLAmount);
-                AB_ecert_totalCSGPamount = AB_ecert_totalCSGPamount + AwardTotal;
+                AB_ecert_totalCSGPamount = AB_ecert_totalCSGPamount + AwardTotalAB;
                 #endregion
                 #region YT - eCert Record
                 //eCert record for YT
