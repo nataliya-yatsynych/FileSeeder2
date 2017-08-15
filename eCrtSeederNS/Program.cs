@@ -101,7 +101,7 @@ namespace eCrtSeederNS
             args = Console.ReadLine().Split(' ');
 
             NumberOfeCertRecords = Convert.ToInt32(args[0]);
-            
+
             Originator = Convert.ToString(args[1]).ToUpper();
             EnvironmentIndicator = Convert.ToString(args[2]).ToUpper();
 
@@ -137,11 +137,12 @@ namespace eCrtSeederNS
             DBconnection obj = new DBconnection();
 
 
-            string pathToFile = "\\\\VC01WFSS";  
+            string pathToFile = "\\\\VC01WFSS";
             if (EnvironmentIndicator == "S")
             {
                 pathToFile += "QA";
-            } else if (EnvironmentIndicator == "D")
+            }
+            else if (EnvironmentIndicator == "D")
             {
                 pathToFile += "DV";
             }
@@ -161,7 +162,8 @@ namespace eCrtSeederNS
                     if (flag.ToUpper() == "Y")
                     {
                         break;
-                    } else
+                    }
+                    else
                     {
                         return;
                     }
@@ -369,7 +371,6 @@ namespace eCrtSeederNS
 
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
-                int AwardTotalAB = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD;
 
                 #region NS - eCert Record
                 eCertRecordNS =
@@ -588,7 +589,7 @@ namespace eCrtSeederNS
                     + ProgramStartDate //2.6 Program start date YYYYMMDD
                     + DateTime.Now.ToString("yyyyMMdd") //2.7 Disburse date YYYYMMDD
                     + CSLAmount.PadLeft(9, '0') //2.8 CSL amount
-                    + AwardTotalAB.ToString().PadLeft(5, '0') //2.9 CSGP amount (Total Award Amount)
+                    + AwardTotal.ToString().PadLeft(5, '0') //2.9 CSGP amount (Total Award Amount)
                     + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //2.10
                     + g1.cSGP_MI_at_NBD.ToString().PadLeft(5, '0') //2.11
                     + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')  //2.12
@@ -668,7 +669,7 @@ namespace eCrtSeederNS
 
                 //Total CSL amount for AB ecert trailer
                 AB_ecert_totalCSLamount = AB_ecert_totalCSLamount + Convert.ToInt32(CSLAmount);
-                AB_ecert_totalCSGPamount = AB_ecert_totalCSGPamount + AwardTotalAB;
+                AB_ecert_totalCSGPamount = AB_ecert_totalCSGPamount + AwardTotal;
                 #endregion
                 #region YT - eCert Record
                 //eCert record for YT
@@ -961,7 +962,7 @@ namespace eCrtSeederNS
                 // Temporary as Cancelled Records not in scope
                 eCertRecordSK_csl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() + Filler.AddFiller(364) + System.Environment.NewLine;
                 eCertRecordSK_csl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
-                eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() +"P" + Filler.AddFiller(363) + System.Environment.NewLine;
+                eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() + "P" + Filler.AddFiller(363) + System.Environment.NewLine;
                 eCertRecordSK_ssl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
                 #endregion
 
@@ -991,7 +992,7 @@ namespace eCrtSeederNS
                     TotalDisbursementNB = TotalDisbursementNB + Convert.ToInt32(CSLAmount) + g1.NBLAmount;
                     CSGPTotalNB = CSGPTotalNB + AwardTotal;
                     NBProvintialGrant += g1.NBBursary + g1.NB_Grant;
-                    TotalOfCanceledDisbursementMB += Convert.ToInt32(CSLAmount);
+                    TotalDisbursementMB += Convert.ToInt32(CSLAmount);
                 }
 
                 SINHashTotal = SINHashTotal + SINCommonForMSFAAandEcert;
@@ -1110,7 +1111,7 @@ namespace eCrtSeederNS
                     break;
                 case "NB":
                     //add trailer to eCert NB
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0')+ CSGPTotalNBCanceled.ToString().PadLeft(9, '0') + NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrantCanceled.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine); break;
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNB.ToString().PadLeft(9, '0') + CSGPTotalNB.ToString().PadLeft(9, '0') + CSGPTotalNBCanceled.ToString().PadLeft(9, '0') + NBProvintialGrant.ToString().PadLeft(9, '0') + NBProvintialGrantCanceled.ToString().PadLeft(9, '0') + Filler.AddFiller(828) + Environment.NewLine); break;
                 case "MB":
                     //add trailer to eCert MB
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementMB.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementMB.ToString().PadLeft(9, '0') + Filler.AddFiller(578) + Environment.NewLine);
