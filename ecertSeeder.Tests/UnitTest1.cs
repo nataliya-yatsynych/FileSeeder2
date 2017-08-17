@@ -11,7 +11,8 @@ namespace ecertSeeder.Tests
         public void TestalidSIN()
         {
 
-            long test= ValidSIN.GenerateValidSIN();
+            long InvalidSIN = 111333444;
+           // Assert.IsFalse(InvalidSIN, Lun)
         }
     }
 }

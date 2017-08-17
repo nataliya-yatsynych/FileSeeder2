@@ -254,7 +254,7 @@ namespace eCrtSeederNS
                 string currentProgramYear = item.SelectRandomValueFromList(CurrentProgramYear);
                 string levelOfStudy = item.SelectRandomValueFromList(LevelOfStudy);
                 string instituteType = item.SelectRandomValueFromList(InstituteType);
-
+                string genderLetter = item.SelectRandomValueFromList(GenderLetter);
 
 
                 string Birthdate = RandomDate.GenerateRandomDate(1950, 2000);
