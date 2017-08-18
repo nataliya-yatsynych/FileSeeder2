@@ -880,7 +880,7 @@ namespace eCrtSeederNS
                     + lastName.Truncate(30).PadRight(30)  //4
                     + firstName.Truncate(30).PadRight(30) //5
                     + Birthdate   //6
-                    + GenderLetter   //7
+                    + genderLetter   //7
                     + maritalStatus   //8
                     + eicode   //9
                     + fieldofstudy  //10
