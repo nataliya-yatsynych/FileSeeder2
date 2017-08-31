@@ -177,9 +177,9 @@ namespace eCrtSeederNS
             {
                 eCertFileName = "ECERT\\CSL.CERT.SENT." + obj.GetEcertDateInFileName().ToString();
             }
-            else if (Originator.ToString() == "ON")
+            else if (Originator.ToString() == "PT_ON")
             {
-                eCertFileName = "ECERT\\PPON.EDU.PTAE"+0001+".RCV.";
+                eCertFileName = "ECERT\\PPON.EDU.PTAE"+ obj.GetEcertSqnInFileName().ToString().PadLeft(4,'0') + ".RCV.";
             }
             MSFAAfileName = "MSFAA\\TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
@@ -195,7 +195,7 @@ namespace eCrtSeederNS
                     //Create eCert File header NL
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
-                case "ON":
+                case "PT_ON":
                     //Create eCert File header ON PT
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderON() + Environment.NewLine);
                     break;
@@ -1078,7 +1078,7 @@ namespace eCrtSeederNS
                     case "SK":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_detail + Environment.NewLine);
                         break;
-                    case "ON":
+                    case "PT_ON":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordON + Environment.NewLine);
                         break;
                 }
@@ -1148,7 +1148,7 @@ namespace eCrtSeederNS
                     //add trailer to eCert NL
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementNL.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementNL.ToString().PadLeft(9, '0') + Filler.AddFiller(640) + Environment.NewLine);
                     break;
-                case "ON":
+                case "PT_ON":
                     //add trailer to eCert on  to do
                     File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementON.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementON.ToString().PadLeft(9, '0') + Filler.AddFiller(475) + Environment.NewLine);
                     break;
