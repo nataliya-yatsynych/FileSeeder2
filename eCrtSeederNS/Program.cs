@@ -641,7 +641,6 @@ namespace eCrtSeederNS
                + postalcode.PadLeft(16)    //3.8
                + Phone // 3.9
                + Filler.AddFiller(103) //3.10
-               + System.Environment.NewLine
                ;
 
                 //eCert record section 5 for AB
@@ -656,7 +655,6 @@ namespace eCrtSeederNS
               + postalcode.PadLeft(16)    //5.8
               + Phone // 3.9
               + Filler.AddFiller(103) //5.10
-              + System.Environment.NewLine
               ;
 
                 //eCert record section 6 for AB
@@ -1068,6 +1066,8 @@ namespace eCrtSeederNS
                     case "AB":
                         //Append eCert section 2 records
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section2 + Environment.NewLine);
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section3 + Environment.NewLine);
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section5 + Environment.NewLine);
                         break;
                     case "NB":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordNB + Environment.NewLine);
@@ -1088,15 +1088,16 @@ namespace eCrtSeederNS
                     File.AppendAllText(pathToFile + MSFAAfileName, RecordMSFAA + Environment.NewLine);
                 }
 
-                AB_ecert_Section3_total += eCertRecordAB_section3;
-                AB_ecert_Section5_total += eCertRecordAB_section5;
+                //AB_ecert_Section3_total += eCertRecordAB_section3;
+                //AB_ecert_Section5_total += eCertRecordAB_section5;
 
                 eCertRecordSK_ssl_detail_total += eCertRecordSK_ssl_detail;
 
 
                 if (status == "N")
                 {
-                    AB_ecert_Section6_total += eCertRecordAB_section6;
+                    File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section6 + Environment.NewLine);
+                    //AB_ecert_Section6_total += eCertRecordAB_section6;
                     AB_ecert_Section6_counter++;
                 }
             }
@@ -1105,12 +1106,12 @@ namespace eCrtSeederNS
             //Write ecert record section 3 to AB
             switch (Originator)
             {
-                case "AB":
-                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section3_total);
-                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section5_total);
-                    File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section6_total);
+                //case "AB":
+                    //File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section3_total);
+                    //File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section5_total);
+                    //File.AppendAllText(pathToFile + eCertFileName, AB_ecert_Section6_total);
 
-                    break;
+                    //break;
 
                 case "SK":
                     File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_trailer);
