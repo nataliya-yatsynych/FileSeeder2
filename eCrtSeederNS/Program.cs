@@ -36,6 +36,7 @@ namespace eCrtSeederNS
         public static int TotalDisbursementNL { get; set; }
         public static int TotalDisbursementNB { get; set; }
         public static int TotalDisbursementMB { get; set; }
+        public static int TotalDisbursementON { get; set; }
         public static int TotalOfCanceledDisbursement { get; set; }
         public static int TotalOfCanceledDisbursementNS { get; set; }
         public static int TotalOfCanceledDisbursementNL { get; set; }
@@ -43,7 +44,7 @@ namespace eCrtSeederNS
         public static int TotalOfCanceledDisbursementPE { get; set; }
         public static int TotalOfCanceledDisbursementNB { get; set; }
         public static int TotalOfCanceledDisbursementMB { get; set; }
-
+        public static int TotalOfCanceledDisbursementON { get; set; }
         public static int AwardTotal { get; set; }
         public static int CSGPTotalNBCanceled { get; set; }
         public static int CSGPTotalNB { get; set; }
@@ -60,6 +61,7 @@ namespace eCrtSeederNS
         public static string eCertRecordYT { get; set; }
         public static string eCertRecordNB { get; set; }
         public static string eCertRecordMB { get; set; }
+        public static string eCertRecordON { get; set; }
         public static string eCertRecordAB_section2 { get; set; }
         public static string eCertRecordAB_section3 { get; set; }
         public static string eCertRecordAB_section5 { get; set; }
@@ -175,6 +177,10 @@ namespace eCrtSeederNS
             {
                 eCertFileName = "ECERT\\CSL.CERT.SENT." + obj.GetEcertDateInFileName().ToString();
             }
+            else if (Originator.ToString() == "ON")
+            {
+                eCertFileName = "ECERT\\PPON.EDU.PTAE"+0001+".RCV.";
+            }
             MSFAAfileName = "MSFAA\\TP" + Originator.ToString() + ".EDU.MSFA.SENT." + CurrentDate.GenerateTodayDate() + "." + obj.GetMCFAASqnInFileName().ToString().PadLeft(3, '0');
 
             #region eCert Header
@@ -190,8 +196,8 @@ namespace eCrtSeederNS
                     File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
                     break;
                 case "ON":
-                    //Create eCert File header ON to do
-                    File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderNL() + Environment.NewLine);
+                    //Create eCert File header ON PT
+                    File.WriteAllText(pathToFile + eCertFileName, Header.AddEcertHeaderON() + Environment.NewLine);
                     break;
                 case "AB":
                     //Create eCert File header AB 
@@ -372,6 +378,7 @@ namespace eCrtSeederNS
                 int AwardTotal = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_MI_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
                 int AwardTotalYT = AwardTotal + g1.TransitionGrantYT;
                 int AwardTotalAB = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_MI_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_FTDEP_at_the_NBD_or_cSGP_PTDEP_at_the_NBD + g1.cSGP_PDSE_at_the_NBD;
+                int AwardTotalON = g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD + g1.cSGP_PD_at_NBD + g1.cSGP_PDSE_at_the_NBD + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD) + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD);
 
                 #region NS - eCert Record
                 eCertRecordNS =
@@ -966,7 +973,49 @@ namespace eCrtSeederNS
                 eCertRecordSK_ssl_header_cancel = "00SK 90 " + CurrentDate.GenerateTodayDate() + "P" + Filler.AddFiller(363) + System.Environment.NewLine;
                 eCertRecordSK_ssl_trailer_cancel = "99000000" + Filler.AddFiller(372) + System.Environment.NewLine;
                 #endregion
-
+                #region ON PT - eCert Record
+                eCertRecordON =
+                     "D" // 1 Record Type
+                    + SINCommonForMSFAAandEcert //2 SIN
+                    + maritalStatus //3
+                    + genderLetter //4
+                    + "1"   // language 5
+                    + Birthdate //6
+                    + lastName.Truncate(50).PadRight(50)  //7
+                    + firstName.Truncate(25).PadRight(25) //8
+                    + address.Truncate(50).PadRight(50)  //9
+                    + address.Truncate(50).PadRight(50)  //10
+                    + city.Truncate(20).PadRight(28)   //11
+                    + provinceCode //12
+                    + Phone.PadLeft(20, '0')    //13
+                    + postalcode //14
+                    + CountryName.PadRight(20) //15
+                    + (firstName + lastName + "@gmail.com").PadRight(50)   //16
+                    + eicode //17
+                    + fieldofstudy.PadRight(2)   //18
+                    + ProgramStartDate  //19
+                    + ProgramEndDate    //20
+                    + CSLAmount.PadLeft(6, '0')     //21
+                    + CertificateNumber  //22
+                    + NotBeforeDate // 23
+                    + DateTime.Now.ToString("yyyyMMdd") //24 Date issued
+                    + status  //25
+                    + "00030" //26 CAG amount
+                    + AwardTotalON.ToString().PadLeft(5, '0') //27
+                    + g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD.ToString().PadLeft(5, '0') //28
+                    + g1.cSGP_PD_at_NBD.ToString().PadLeft(5, '0')   //29
+                    + g1.cSGP_PDSE_at_the_NBD.ToString().PadLeft(5, '0') //30
+                    + Filler.AddFiller(10)  //31
+                    + MidPointDate  //32
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_LI_at_NBD_or_cSGP_PT_at_NBD).ToString().PadLeft(5, '0') //33
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PD_at_NBD).ToString().PadLeft(5, '0')    //34
+                    + MidPoint.ValueAtMidPoint(g1.cSGP_PDSE_at_the_NBD).ToString().PadLeft(5, '0')  //35
+                    + Filler.AddFiller(10)  //36
+                    + EIConfirmDate //37
+                    + EIAmount.PadLeft(7, '0')  //49
+                    + Filler.AddFiller(42); //31
+                 
+                #endregion
 
                 if (status == "N")
                 {
@@ -980,7 +1029,7 @@ namespace eCrtSeederNS
                     CSGPTotalNBCanceled = CSGPTotalNBCanceled + AwardTotal;
                     NBProvintialGrantCanceled += g1.NBBursary + g1.NB_Grant;
                     TotalOfCanceledDisbursementMB += Convert.ToInt32(CSLAmount);
-
+                    TotalOfCanceledDisbursementON += Convert.ToInt32(CSLAmount);
                 }
                 else
                 {
@@ -994,6 +1043,7 @@ namespace eCrtSeederNS
                     CSGPTotalNB = CSGPTotalNB + AwardTotal;
                     NBProvintialGrant += g1.NBBursary + g1.NB_Grant;
                     TotalDisbursementMB += Convert.ToInt32(CSLAmount);
+                    TotalDisbursementON += Convert.ToInt32(CSLAmount);
                 }
 
                 SINHashTotal = SINHashTotal + SINCommonForMSFAAandEcert;
@@ -1015,10 +1065,6 @@ namespace eCrtSeederNS
                     case "YT":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordYT + Environment.NewLine);
                         break;
-                    case "ON":
-                        //Append eCert records
-                        File.AppendAllText(pathToFile + eCertFileName, "not yet ready!!!" + Environment.NewLine); //to do
-                        break;
                     case "AB":
                         //Append eCert section 2 records
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordAB_section2 + Environment.NewLine);
@@ -1031,6 +1077,9 @@ namespace eCrtSeederNS
                         break;
                     case "SK":
                         File.AppendAllText(pathToFile + eCertFileName, eCertRecordSK_csl_detail + Environment.NewLine);
+                        break;
+                    case "ON":
+                        File.AppendAllText(pathToFile + eCertFileName, eCertRecordON + Environment.NewLine);
                         break;
                 }
                 //Append MSFAA records
@@ -1100,7 +1149,7 @@ namespace eCrtSeederNS
                     break;
                 case "ON":
                     //add trailer to eCert on  to do
-                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursement.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursement.ToString().PadLeft(9, '0') + Filler.AddFiller(640) + Environment.NewLine);
+                    File.AppendAllText(pathToFile + eCertFileName, "T" + NumberOfeCertRecords.ToString().PadLeft(6, '0') + TotalDisbursementON.ToString().PadLeft(9, '0') + TotalOfCanceledDisbursementON.ToString().PadLeft(9, '0') + Filler.AddFiller(475) + Environment.NewLine);
                     break;
                 case "AB":
                     //add trailer to eCert AB 

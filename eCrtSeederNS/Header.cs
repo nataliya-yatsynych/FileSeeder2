@@ -90,6 +90,16 @@ namespace eCrtSeederNS
             string eCertHeader = "00SK 15 " + FileCreationDate + Filler.AddFiller(364);
             return eCertHeader;
         }
+        public static string AddEcertHeaderON()
+        {
+
+            string FileCreationDate = CurrentDate.GenerateTodayDate();
+            DBconnection obj2 = new DBconnection();
+
+            //Result String
+            string eCertHeader = "H" + obj2.GetEcertSqnInHeader().ToString().PadLeft(9, '0')+ Program.Originator.ToString()+FileCreationDate + Filler.AddFiller(480);
+            return eCertHeader;
+        }
         public static string AddMSFAAHeader()
         {
             string RecordTypeHeader = "100";
